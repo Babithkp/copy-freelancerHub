@@ -42,10 +42,15 @@ try{
       const userInfo = await User.findOne({ email: email})
       if (userInfo) {
         if(userInfo.password === password){
-          const token = jwt.sign({userInfo},"secret",{expiresIn: "2h"});
-          localStorage.setItem("token", token);
-          localStorage.setItem("userID", userInfo._id);
-          return true
+          const token = jwt.sign({ userId: userInfo._id }, "secret", {
+            expiresIn: "2h"
+          });
+          const filter = JSON.stringify(userInfo._id)
+          const req={
+            id: filter,
+            token: token
+          }
+          return req;
         }
       }else{
         return false
