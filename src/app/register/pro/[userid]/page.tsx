@@ -1,5 +1,4 @@
-"use client";
-import Button from "@/components/button/Button";
+"use client";import Button from "@/components/button/Button";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -9,7 +8,7 @@ import { v4 } from "uuid";
 import { storage } from "@/lib/firebase";
 import { toast } from "react-toastify";
 import { addUserIdentity } from "@/lib/http/controller/userController";
-
+import { VscLoading } from "react-icons/vsc";
 
 type Inputs = {
   profileUrl: string;
@@ -21,7 +20,7 @@ type Inputs = {
   state: string;
   postalCode: number;
   neigborhood: string;
-  user:string
+  user: string;
 };
 
 const countryOptions = [
@@ -56,7 +55,10 @@ const countryOptions = [
   { value: "Botswana", label: "Botswana" },
   { value: "Bouvet Island", label: "Bouvet Island" },
   { value: "Brazil", label: "Brazil" },
-  { value: "British Indian Ocean Territory", label: "British Indian Ocean Territory" },
+  {
+    value: "British Indian Ocean Territory",
+    label: "British Indian Ocean Territory",
+  },
   { value: "Brunei Darussalam", label: "Brunei Darussalam" },
   { value: "Bulgaria", label: "Bulgaria" },
   { value: "Burkina Faso", label: "Burkina Faso" },
@@ -75,7 +77,10 @@ const countryOptions = [
   { value: "Colombia", label: "Colombia" },
   { value: "Comoros", label: "Comoros" },
   { value: "Congo", label: "Congo" },
-  { value: "Congo, The Democratic Republic of The", label: "Congo, The Democratic Republic of The" },
+  {
+    value: "Congo, The Democratic Republic of The",
+    label: "Congo, The Democratic Republic of The",
+  },
   { value: "Cook Islands", label: "Cook Islands" },
   { value: "Costa Rica", label: "Costa Rica" },
   { value: "Cote D'ivoire", label: "Cote D'ivoire" },
@@ -95,14 +100,20 @@ const countryOptions = [
   { value: "Eritrea", label: "Eritrea" },
   { value: "Estonia", label: "Estonia" },
   { value: "Ethiopia", label: "Ethiopia" },
-  { value: "Falkland Islands (Malvinas)", label: "Falkland Islands (Malvinas)" },
+  {
+    value: "Falkland Islands (Malvinas)",
+    label: "Falkland Islands (Malvinas)",
+  },
   { value: "Faroe Islands", label: "Faroe Islands" },
   { value: "Fiji", label: "Fiji" },
   { value: "Finland", label: "Finland" },
   { value: "France", label: "France" },
   { value: "French Guiana", label: "French Guiana" },
   { value: "French Polynesia", label: "French Polynesia" },
-  { value: "French Southern Territories", label: "French Southern Territories" },
+  {
+    value: "French Southern Territories",
+    label: "French Southern Territories",
+  },
   { value: "Gabon", label: "Gabon" },
   { value: "Gambia", label: "Gambia" },
   { value: "Georgia", label: "Georgia" },
@@ -120,8 +131,14 @@ const countryOptions = [
   { value: "Guinea-bissau", label: "Guinea-bissau" },
   { value: "Guyana", label: "Guyana" },
   { value: "Haiti", label: "Haiti" },
-  { value: "Heard Island and Mcdonald Islands", label: "Heard Island and Mcdonald Islands" },
-  { value: "Holy See (Vatican City State)", label: "Holy See (Vatican City State)" },
+  {
+    value: "Heard Island and Mcdonald Islands",
+    label: "Heard Island and Mcdonald Islands",
+  },
+  {
+    value: "Holy See (Vatican City State)",
+    label: "Holy See (Vatican City State)",
+  },
   { value: "Honduras", label: "Honduras" },
   { value: "Hong Kong", label: "Hong Kong" },
   { value: "Hungary", label: "Hungary" },
@@ -141,11 +158,17 @@ const countryOptions = [
   { value: "Kazakhstan", label: "Kazakhstan" },
   { value: "Kenya", label: "Kenya" },
   { value: "Kiribati", label: "Kiribati" },
-  { value: "Korea, Democratic People's Republic of", label: "Korea, Democratic People's Republic of" },
+  {
+    value: "Korea, Democratic People's Republic of",
+    label: "Korea, Democratic People's Republic of",
+  },
   { value: "Korea, Republic of", label: "Korea, Republic of" },
   { value: "Kuwait", label: "Kuwait" },
   { value: "Kyrgyzstan", label: "Kyrgyzstan" },
-  { value: "Lao People's Democratic Republic", label: "Lao People's Democratic Republic" },
+  {
+    value: "Lao People's Democratic Republic",
+    label: "Lao People's Democratic Republic",
+  },
   { value: "Latvia", label: "Latvia" },
   { value: "Lebanon", label: "Lebanon" },
   { value: "Lesotho", label: "Lesotho" },
@@ -155,7 +178,10 @@ const countryOptions = [
   { value: "Lithuania", label: "Lithuania" },
   { value: "Luxembourg", label: "Luxembourg" },
   { value: "Macao", label: "Macao" },
-  { value: "Macedonia, The Former Yugoslav Republic of", label: "Macedonia, The Former Yugoslav Republic of" },
+  {
+    value: "Macedonia, The Former Yugoslav Republic of",
+    label: "Macedonia, The Former Yugoslav Republic of",
+  },
   { value: "Madagascar", label: "Madagascar" },
   { value: "Malawi", label: "Malawi" },
   { value: "Malaysia", label: "Malaysia" },
@@ -168,7 +194,10 @@ const countryOptions = [
   { value: "Mauritius", label: "Mauritius" },
   { value: "Mayotte", label: "Mayotte" },
   { value: "Mexico", label: "Mexico" },
-  { value: "Micronesia, Federated States of", label: "Micronesia, Federated States of" },
+  {
+    value: "Micronesia, Federated States of",
+    label: "Micronesia, Federated States of",
+  },
   { value: "Moldova, Republic of", label: "Moldova, Republic of" },
   { value: "Monaco", label: "Monaco" },
   { value: "Mongolia", label: "Mongolia" },
@@ -193,7 +222,10 @@ const countryOptions = [
   { value: "Oman", label: "Oman" },
   { value: "Pakistan", label: "Pakistan" },
   { value: "Palau", label: "Palau" },
-  { value: "Palestinian Territory, Occupied", label: "Palestinian Territory, Occupied" },
+  {
+    value: "Palestinian Territory, Occupied",
+    label: "Palestinian Territory, Occupied",
+  },
   { value: "Panama", label: "Panama" },
   { value: "Papua New Guinea", label: "Papua New Guinea" },
   { value: "Paraguay", label: "Paraguay" },
@@ -212,7 +244,10 @@ const countryOptions = [
   { value: "Saint Kitts and Nevis", label: "Saint Kitts and Nevis" },
   { value: "Saint Lucia", label: "Saint Lucia" },
   { value: "Saint Pierre and Miquelon", label: "Saint Pierre and Miquelon" },
-  { value: "Saint Vincent and The Grenadines", label: "Saint Vincent and The Grenadines" },
+  {
+    value: "Saint Vincent and The Grenadines",
+    label: "Saint Vincent and The Grenadines",
+  },
   { value: "Samoa", label: "Samoa" },
   { value: "San Marino", label: "San Marino" },
   { value: "Sao Tome and Principe", label: "Sao Tome and Principe" },
@@ -227,7 +262,10 @@ const countryOptions = [
   { value: "Solomon Islands", label: "Solomon Islands" },
   { value: "Somalia", label: "Somalia" },
   { value: "South Africa", label: "South Africa" },
-  { value: "South Georgia and The South Sandwich Islands", label: "South Georgia and The South Sandwich Islands" },
+  {
+    value: "South Georgia and The South Sandwich Islands",
+    label: "South Georgia and The South Sandwich Islands",
+  },
   { value: "Spain", label: "Spain" },
   { value: "Sri Lanka", label: "Sri Lanka" },
   { value: "Sudan", label: "Sudan" },
@@ -239,7 +277,10 @@ const countryOptions = [
   { value: "Syrian Arab Republic", label: "Syrian Arab Republic" },
   { value: "Taiwan (ROC)", label: "Taiwan (ROC)" },
   { value: "Tajikistan", label: "Tajikistan" },
-  { value: "Tanzania, United Republic of", label: "Tanzania, United Republic of" },
+  {
+    value: "Tanzania, United Republic of",
+    label: "Tanzania, United Republic of",
+  },
   { value: "Thailand", label: "Thailand" },
   { value: "Timor-leste", label: "Timor-leste" },
   { value: "Togo", label: "Togo" },
@@ -256,7 +297,10 @@ const countryOptions = [
   { value: "United Arab Emirates", label: "United Arab Emirates" },
   { value: "United Kingdom", label: "United Kingdom" },
   { value: "United States", label: "United States" },
-  { value: "United States Minor Outlying Islands", label: "United States Minor Outlying Islands" },
+  {
+    value: "United States Minor Outlying Islands",
+    label: "United States Minor Outlying Islands",
+  },
   { value: "Uruguay", label: "Uruguay" },
   { value: "Uzbekistan", label: "Uzbekistan" },
   { value: "Vanuatu", label: "Vanuatu" },
@@ -268,57 +312,52 @@ const countryOptions = [
   { value: "Western Sahara", label: "Western Sahara" },
   { value: "Yemen", label: "Yemen" },
   { value: "Zambia", label: "Zambia" },
-  { value: "Zimbabwe", label: "Zimbabwe" }
-  ];
+  { value: "Zimbabwe", label: "Zimbabwe" },
+];
 
 export default function Pro() {
   const [selectedImage, setSelectedImage] = useState<any>(null);
-  const [imageFile,setImageFile] = useState()
-  const [submitted,setSubmitted] = useState(false)
+  const [imageFile, setImageFile] = useState();
+  const [isSubmitting, setSubmitted] = useState(false);
 
-  const getUrl = usePathname()
-  
+  const getUrl = usePathname();
 
-  
   const router = useRouter();
 
-  async function addProfileImageToStorage(file:any){
-    const storageRef = ref(
-      storage,
-      `userProfileImages/${file.name + v4()}`,
-    );
-const response = await uploadBytes(storageRef, file);
-      const snapshot = response.ref;
-      const getProfileURL = await getDownloadURL(snapshot);
-      if (getProfileURL) {
-        if (response) {
-          toast.success('Profile is added successfully', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-          return getProfileURL
-        } else {
-          toast.error('Failed to add Profile', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        }
+  async function addProfileImageToStorage(file: any) {
+    const storageRef = ref(storage, `userProfileImages/${file.name + v4()}`);
+    const response = await uploadBytes(storageRef, file);
+    const snapshot = response.ref;
+    const getProfileURL = await getDownloadURL(snapshot);
+    if (getProfileURL) {
+      if (response) {
+        toast.success("Profile is added successfully", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        return getProfileURL;
+      } else {
+        toast.error("Failed to add Profile", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
+    }
   }
-  
-  const handleImageChange = async(event: any) => {
+
+  const handleImageChange = async (event: any) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader() as any;
@@ -326,7 +365,7 @@ const response = await uploadBytes(storageRef, file);
         setSelectedImage(reader.result);
       };
       reader.readAsDataURL(file);
-      setImageFile(file)
+      setImageFile(file);
     }
   };
 
@@ -336,22 +375,22 @@ const response = await uploadBytes(storageRef, file);
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = async(data) => {
-    setSubmitted(true)
-    let userPicUrl
-    if(imageFile){
-      userPicUrl = await addProfileImageToStorage(imageFile)
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setSubmitted(true);
+    let userPicUrl;
+    if (imageFile) {
+      userPicUrl = await addProfileImageToStorage(imageFile);
     }
-    const path = getUrl.split("/")[3]
-    const userInfo = data
-    if(userPicUrl){
-      userInfo.profileUrl = userPicUrl
+    const path = getUrl.split("/")[3];
+    const userInfo = data;
+    if (userPicUrl) {
+      userInfo.profileUrl = userPicUrl;
     }
-    userInfo.user = path
-    try{
-      const response = await addUserIdentity(userInfo)
-      if(response){
-        toast.success('Identity saved successfully', {
+    userInfo.user = path;
+    try {
+      const response = await addUserIdentity(userInfo);
+      if (response) {
+        toast.success("Identity saved successfully", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -360,11 +399,11 @@ const response = await uploadBytes(storageRef, file);
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
-          router.push(`/register/completeYourProfile/${path}`)
+        });
+        router.push(`/register/completeYourProfile/${path}`);
       }
-    }catch(e){
-      toast.error('Failed to save Identity', {
+    } catch (e) {
+      toast.error("Failed to save Identity", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -373,8 +412,7 @@ const response = await uploadBytes(storageRef, file);
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
-      
+      });
     }
   };
 
@@ -393,15 +431,15 @@ const response = await uploadBytes(storageRef, file);
         <div className="py-5 flex-1">
           <div className="flex flex-col justify-center items-center gap-4">
             <div className="w-[10rem] h-[10rem]">
-            <Image
-              src={selectedImage || "/images/def_fl_128.avif"}
-              alt="default image"
-              width={200}
-              height={200}
-              loading="lazy"
-              className="border h-full w-full rounded-lg object-cover drop-shadow-lg p-2"
+              <Image
+                src={selectedImage || "/images/def_fl_128.avif"}
+                alt="default image"
+                width={200}
+                height={200}
+                loading="lazy"
+                className="border h-full w-full rounded-lg object-cover drop-shadow-lg p-2"
               />
-              </div>
+            </div>
             <label htmlFor="image">
               <div className="bg-[#4FBFA3] px-6 py-1 w-fit rounded-md text-sm text-white">
                 Upload Photo
@@ -428,8 +466,10 @@ const response = await uploadBytes(storageRef, file);
                 {...register("ScreenName", { required: true, minLength: 5 })}
               />
               {errors.ScreenName && (
-            <p className="text-sm text-red-500">Please enter a valid Name</p>
-          )}
+                <p className="text-sm text-red-500">
+                  Please enter a valid Name
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -450,21 +490,24 @@ const response = await uploadBytes(storageRef, file);
               className="w-full border-b px-3 py-1.5 focus:outline-none focus:border-[#4FBFA3]"
               placeholder="Enter a location"
               {...register("address", { required: true, minLength: 5 })}
-              />
-              {errors.address && (
-            <p className="text-sm text-red-500">Please enter a valid Adress</p>
-          )}
+            />
+            {errors.address && (
+              <p className="text-sm text-red-500">
+                Please enter a valid Adress
+              </p>
+            )}
           </label>
           <label className="px-6 space-y-1">
             <h2 className="text-sm">Country</h2>
             <select
-            
-              {...register('country', { required: true })}
+              {...register("country", { required: true })}
               className="w-full border rounded-md px-3 py-1.5 focus:outline-none focus:border-[#4FBFA3]"
               required
             >
-              {countryOptions.map((country) =>(
-                <option key={country.value} value={country.value}>{country.label}</option>
+              {countryOptions.map((country) => (
+                <option key={country.value} value={country.value}>
+                  {country.label}
+                </option>
               ))}
             </select>
           </label>
@@ -477,10 +520,12 @@ const response = await uploadBytes(storageRef, file);
               className="w-full border rounded-md px-3 py-1.5 focus:outline-none focus:border-[#4FBFA3]"
               placeholder="Street"
               {...register("street", { required: true, minLength: 5 })}
-              />
-              {errors.street && (
-            <p className="text-sm text-red-500">Please enter a valid Street</p>
-          )}
+            />
+            {errors.street && (
+              <p className="text-sm text-red-500">
+                Please enter a valid Street
+              </p>
+            )}
           </label>
           <div className="flex gap-2 flex-wrap">
             <label className="space-y-1 flex-1">
@@ -492,10 +537,12 @@ const response = await uploadBytes(storageRef, file);
                 className="w-full border rounded-md px-3 py-1.5 focus:outline-none focus:border-[#4FBFA3]"
                 placeholder="City"
                 {...register("city", { required: true, minLength: 5 })}
-                />
-                {errors.city && (
-              <p className="text-sm text-red-500">Please enter a valid City</p>
-            )}
+              />
+              {errors.city && (
+                <p className="text-sm text-red-500">
+                  Please enter a valid City
+                </p>
+              )}
             </label>
             <label className="space-y-1 flex-1">
               <h2 className="text-sm">
@@ -506,10 +553,12 @@ const response = await uploadBytes(storageRef, file);
                 className="w-full border rounded-md px-3 py-1.5 focus:outline-none focus:border-[#4FBFA3]"
                 placeholder="State"
                 {...register("state", { required: true, minLength: 5 })}
-                />
-                {errors.state && (
-              <p className="text-sm text-red-500">Please enter a valid State</p>
-            )}
+              />
+              {errors.state && (
+                <p className="text-sm text-red-500">
+                  Please enter a valid State
+                </p>
+              )}
             </label>
             <label className="space-y-1 flex-1">
               <h2 className="text-sm">
@@ -519,11 +568,13 @@ const response = await uploadBytes(storageRef, file);
                 type="text"
                 className="w-full border rounded-md px-3 py-1.5 focus:outline-none focus:border-[#4FBFA3]"
                 placeholder="Postal Code"
-                {...register("postalCode", { required: true, minLength: 5 })}
-                />
-                {errors.postalCode && (
-              <p className="text-sm text-red-500">Please enter a valid postalCode</p>
-            )}
+                {...register("postalCode", { required: true })}
+              />
+              {errors.postalCode && (
+                <p className="text-sm text-red-500">
+                  Please enter a valid postalCode
+                </p>
+              )}
             </label>
           </div>
           <label className="px-6 space-y-1">
@@ -536,17 +587,25 @@ const response = await uploadBytes(storageRef, file);
               className="w-full border rounded-md px-3 py-1.5 focus:outline-none focus:border-[#4FBFA3]"
               placeholder="Suburb/ district/ neighborhood"
               {...register("neigborhood", { required: true, minLength: 5 })}
-              />
-              {errors.neigborhood && (
-            <p className="text-sm text-red-500">Please enter a valid neigborhood Address</p>
-          )}
+            />
+            {errors.neigborhood && (
+              <p className="text-sm text-red-500">
+                Please enter a valid neigborhood Address
+              </p>
+            )}
           </label>
         </div>
       </div>
       {/* end Enter your Contact Information */}
       <div className="w-full mb-10 mt-5 ">
-        <Button disabled={submitted ? true :false }>
-          Save
+        <Button disabled={isSubmitting ? true : false}>
+          {isSubmitting ? (
+            <div className="animate-spin">
+              <VscLoading size={25} />
+            </div>
+          ) : (
+            "Save"
+          )}
         </Button>
       </div>
     </form>

@@ -1,5 +1,4 @@
-"use server";
-import bcrypt from "bcrypt";
+"use server";import bcrypt from "bcrypt";
 import { connectDB } from "../connectDB";
 import User, { user } from "../model/user";
 import mongoose from "mongoose";
@@ -54,7 +53,6 @@ export const addNewUser = async (
 export const userLogin = async (email: string, password: string) => {
   try {
     await connectDB();
-    
     const userInfo = await User.findOne({ email: email });
     if (userInfo) {
       if (userInfo.password === password) {
@@ -86,6 +84,60 @@ export const addUserIdentity = async (userInfo: userRegistor) => {
     } else {
       return false;
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserIdentity = async (id: string) => {
+  try {
+    await connectDB();
+    const userInfo = await UserRegistor.findOne({ user: id });
+    if (userInfo) {
+      const filter = JSON.stringify(userInfo);
+      return filter;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateRegiterProfile = async (
+  id: string,
+  individual: object | boolean,
+  company: object | boolean,
+  profileUrl: string
+) => {
+  try {
+    await connectDB();
+    mongoose.model("UserRegistor", UserRegistor.schema);
+    if (individual) {
+      const userInfo = await UserRegistor.findOneAndUpdate(
+        { user: id },
+        {
+          profileUrl: profileUrl,
+          individual: individual,
+        }
+      );
+      if(userInfo){
+        return true;
+      }
+    }
+    if (company) {
+      const userInfo = await UserRegistor.findOneAndUpdate(
+        { user: id },
+        {
+          profileUrl: profileUrl,
+          company: company,
+        }
+      );
+      if(userInfo){
+        return true;
+      }
+    }
+    return false;
   } catch (error) {
     console.log(error);
   }

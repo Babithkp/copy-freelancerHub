@@ -9,7 +9,6 @@ function Editor( props:any ) {
         return (
             <CKEditor
                 editor={ ClassicEditor }
-
                 data={ props.initialData }
                 onChange={ (event, editor ) => {
                     const data = editor.getData();
