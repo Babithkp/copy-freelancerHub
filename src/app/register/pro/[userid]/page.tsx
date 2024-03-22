@@ -1,12 +1,18 @@
 "use client";
 import Button from "@/components/button/Button";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
+import { storage } from "@/lib/firebase";
+import { toast } from "react-toastify";
+import { addUserIdentity } from "@/lib/http/controller/userController";
+
 
 type Inputs = {
-  profileUrl: FileList;
+  profileUrl: string;
   ScreenName: string;
   address: string;
   country: string;
@@ -15,6 +21,7 @@ type Inputs = {
   state: string;
   postalCode: number;
   neigborhood: string;
+  user:string
 };
 
 const countryOptions = [
@@ -266,10 +273,52 @@ const countryOptions = [
 
 export default function Pro() {
   const [selectedImage, setSelectedImage] = useState<any>(null);
-  const router = useRouter();
+  const [imageFile,setImageFile] = useState()
+  const [submitted,setSubmitted] = useState(false)
+
+  const getUrl = usePathname()
+  
 
   
-  const handleImageChange = (event: any) => {
+  const router = useRouter();
+
+  async function addProfileImageToStorage(file:any){
+    const storageRef = ref(
+      storage,
+      `userProfileImages/${file.name + v4()}`,
+    );
+const response = await uploadBytes(storageRef, file);
+      const snapshot = response.ref;
+      const getProfileURL = await getDownloadURL(snapshot);
+      if (getProfileURL) {
+        if (response) {
+          toast.success('Profile is added successfully', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          return getProfileURL
+        } else {
+          toast.error('Failed to add Profile', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      }
+  }
+  
+  const handleImageChange = async(event: any) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader() as any;
@@ -277,6 +326,7 @@ export default function Pro() {
         setSelectedImage(reader.result);
       };
       reader.readAsDataURL(file);
+      setImageFile(file)
     }
   };
 
@@ -286,9 +336,46 @@ export default function Pro() {
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
-    router.push("/register/completeYourProfile")
+  const onSubmit: SubmitHandler<Inputs> = async(data) => {
+    setSubmitted(true)
+    let userPicUrl
+    if(imageFile){
+      userPicUrl = await addProfileImageToStorage(imageFile)
+    }
+    const path = getUrl.split("/")[3]
+    const userInfo = data
+    if(userPicUrl){
+      userInfo.profileUrl = userPicUrl
+    }
+    userInfo.user = path
+    try{
+      const response = await addUserIdentity(userInfo)
+      if(response){
+        toast.success('Identity saved successfully', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+          router.push(`/register/completeYourProfile/${path}`)
+      }
+    }catch(e){
+      toast.error('Failed to save Identity', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      
+    }
   };
 
   return (
@@ -305,14 +392,16 @@ export default function Pro() {
         </div>
         <div className="py-5 flex-1">
           <div className="flex flex-col justify-center items-center gap-4">
+            <div className="w-[10rem] h-[10rem]">
             <Image
               src={selectedImage || "/images/def_fl_128.avif"}
               alt="default image"
-              width={130}
-              height={0}
+              width={200}
+              height={200}
               loading="lazy"
-              className="border p-2"
-            />
+              className="border h-full w-full rounded-lg object-cover drop-shadow-lg p-2"
+              />
+              </div>
             <label htmlFor="image">
               <div className="bg-[#4FBFA3] px-6 py-1 w-fit rounded-md text-sm text-white">
                 Upload Photo
@@ -456,7 +545,7 @@ export default function Pro() {
       </div>
       {/* end Enter your Contact Information */}
       <div className="w-full mb-10 mt-5 ">
-        <Button>
+        <Button disabled={submitted ? true :false }>
           Save
         </Button>
       </div>

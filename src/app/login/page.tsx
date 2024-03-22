@@ -131,7 +131,7 @@ export default function Login() {
         )}
           <div className="text-[14px] leading-[21px] flex justify-between">
             <label className="flex items-center gap-3">
-              <input type="checkbox" className="scale-125" required/>
+              <input type="checkbox" className="scale-125" />
               <span className="cursor-pointer">Remember me</span>
             </label>
             <Link href={"#"} className="text-[#4FBFA3]">
