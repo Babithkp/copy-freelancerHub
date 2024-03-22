@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "icomoon";
+    src: url("/public/fonts/icomoon.ttf") format(''truetype'');
+    font-weight: 900; /* Black weight is typically 900 */
+    font-style: normal;
+}
+@font-face {
+    font-family: "icomoon";
+    src: url("/public/fonts/icomoon.ttf") format(''truetype'');
+    font-weight: 900; /* Black weight is typically 900 */
+    font-style: italic;
+}
+
+/* Roboto Bold */
+@font-face {
+    font-family: "icomoon";
+    src: url("/public/fonts/icomoon.ttf") format(''truetype'');
+    font-weight: 700; /* Bold weight is typically 700 */
+    font-style: normal;
+}
+
+body {
+    font-family: "icomoon", sans-serif;
+    font-weight: 400;
+}
+
+::-webkit-scrollbar {
+    width: 2px;
+    height: 0;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
