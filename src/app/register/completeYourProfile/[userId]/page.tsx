@@ -134,6 +134,7 @@ export default function CompleteYourProfile() {
       }
     }
   }
+  
   async function addressFileToStorage(file: any) {
     const storageRef = ref(storage, `userAddressFile/${file.name + v4()}`);
     const response = await uploadBytes(storageRef, file);

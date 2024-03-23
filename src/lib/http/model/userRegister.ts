@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";import { user } from "./user";
-
+import {service} from "./services";
 export interface userRegistor extends mongoose.Document {
   profileUrl: string;
   ScreenName: string;
@@ -13,7 +13,7 @@ export interface userRegistor extends mongoose.Document {
   user: user;
   individual: object;
   company: object;
-  services:any
+  services:service
 }
 
 export const UserRegistorSchema = new mongoose.Schema<userRegistor>({
@@ -60,7 +60,7 @@ export const UserRegistorSchema = new mongoose.Schema<userRegistor>({
   },
   services: [{
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Services",
   }],
 });
 

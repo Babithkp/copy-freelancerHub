@@ -1,9 +1,11 @@
-"use server";import bcrypt from "bcrypt";
+"use server";
+import bcrypt from "bcrypt";
 import { connectDB } from "../connectDB";
 import User, { user } from "../model/user";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import UserRegistor from "../model/userRegister";
+import Services from "../model/services";
 
 type userRegistor = {
   profileUrl: string;
@@ -121,7 +123,7 @@ export const updateRegiterProfile = async (
           individual: individual,
         }
       );
-      if(userInfo){
+      if (userInfo) {
         return true;
       }
     }
@@ -133,11 +135,54 @@ export const updateRegiterProfile = async (
           company: company,
         }
       );
-      if(userInfo){
+      if (userInfo) {
         return true;
       }
     }
     return false;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addNewService = async (
+  userId: string,
+  Title: string,
+  description: string,
+  rateHr: string,
+  rateWeek: string,
+  thumbnailUrl: string | undefined,
+) => {
+  try {
+    await connectDB();
+
+    const user = await UserRegistor.findOne({ user: userId });
+    if (user) {
+      const newService = new Services({
+        Title,
+        description,
+        rateHr,
+        rateWeek,
+        thumbnailUrl,
+        user: user._id,
+      });
+      await newService.save()
+      if (newService) {
+        const userInfo = await UserRegistor.findOneAndUpdate(
+          { user: userId },
+          {
+            $push: { services: newService._id },
+          }
+        );
+
+        if (userInfo) {
+          console.log("new service added to register");
+          return true
+        }
+      }
+    }else{
+      return false
+    }
   } catch (error) {
     console.log(error);
   }
