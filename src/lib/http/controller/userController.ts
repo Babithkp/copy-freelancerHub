@@ -19,6 +19,7 @@ type userRegistor = {
   postalCode: number;
   neigborhood: string;
   user: string;
+  tagline:String;
 };
 
 export const addNewUser = async (
@@ -275,5 +276,21 @@ export const getAllUserData = async() => {
   }catch (error){
     console.log(error);
     
+  }
+}
+
+export const getUserAllInfo = async(userId:string)=>{
+  try{
+    await connectDB();
+    const user = await UserRegistor.findOne({user:userId}).populate("card").populate("services").populate("verifyDoc").exec();
+    if(user){
+      const filter = JSON.stringify(user)
+      return filter
+    }else{
+      return false
+    }
+    
+  } catch (error) {
+    console.log(error);
   }
 }

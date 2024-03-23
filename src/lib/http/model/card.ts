@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 export interface card extends mongoose.Document{
     cardNumber: number;
     type: string;
-    expeiry: Date;
+    expeiry: string;
     cvc: number;
     address: string;
 }
@@ -18,7 +18,7 @@ export const UserSchema = new mongoose.Schema<card>({
         required: true
     },
     expeiry:{
-        type: Date,
+        type: String,
         required: true
     },
     cvc:{

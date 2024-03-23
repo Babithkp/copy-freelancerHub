@@ -44,11 +44,11 @@ export const UserRegistorSchema = new mongoose.Schema<userRegistor>({
     type: String,
     minlength: [5, "city cannot be less than 5 characters"],
   },
-  postalCode: {
-    type: Number,
-    required: true,
-  },
   neigborhood: {
+    postalCode: {
+      type: Number,
+      required: true,
+    },
     type: String,
     minlength: [5, "neigborhood cannot be less than 5 characters"],
   },

@@ -24,7 +24,6 @@ export default function AdminContainer() {
             if(response){
                 const filter = JSON.parse(response)
                 setUser(filter)
-                
             }
         }
         fetch()
