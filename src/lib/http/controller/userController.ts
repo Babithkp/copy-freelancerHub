@@ -56,6 +56,9 @@ export const addNewUser = async (
 export const userLogin = async (email: string, password: string) => {
   try {
     await connectDB();
+    if(email === "admin@gmail.com" && password === "admin"){
+      return "admin"
+    }
     const userInfo = await User.findOne({ email: email });
     if (userInfo) {
       if (userInfo.password === password) {
@@ -237,8 +240,40 @@ export const getUserCardInfo = async(userId:string)=>{
       return false
     }
     
-
   } catch (error) {
     console.log(error);
+  }
+}
+
+export const addDocToVerify = async(userId:string,docInfo:object)=>{
+  try{
+    await connectDB();
+    mongoose.model("UserRegistor", UserRegistor.schema);
+    const user = await UserRegistor.findOneAndUpdate({user:userId},{
+      $push: {verifyDoc: docInfo}
+    });
+    if(user){
+      return true
+    }else{
+      return false
+    }
+   } catch (error) {
+    console.log(error);
+  }
+}
+
+export const getAllUserData = async() => {
+  try{
+    await connectDB();
+    const user = await User.find()
+    if(user){
+      const filter = JSON.stringify(user)
+      return filter
+    }else{
+      return false
+    }
+  }catch (error){
+    console.log(error);
+    
   }
 }

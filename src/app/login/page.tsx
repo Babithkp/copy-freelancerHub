@@ -30,21 +30,25 @@ export default function Login() {
       setIsSubmitting(true)
       const response = await userLogin(data.email, data.password);
       if(response){
-        const userid = JSON.parse(response.id)
-        const storeToken = localStorage.setItem("userInfo",response.token)
-        const storeId = localStorage.setItem("userId",response.id)
-        toast.success('Login successfully', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
+        if(response === "admin"){
+          router.push("admin")
+        }else{
+          const userid = JSON.parse(response.id)
+          const storeToken = localStorage.setItem("userInfo",response.token)
+          const storeId = localStorage.setItem("userId",response.id)
+          toast.success('Login successfully', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
           });
           setIsSubmitting(false)
-        router.replace(`/register/pro/${userid}`)
+          router.replace(`/register/pro/${userid}`)
+        }
       }else{
         toast.error('Failed to Loggin, try again', {
           position: "top-right",
