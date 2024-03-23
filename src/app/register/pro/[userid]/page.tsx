@@ -331,7 +331,7 @@ export default function Pro() {
     const getProfileURL = await getDownloadURL(snapshot);
     if (getProfileURL) {
       if (response) {
-        toast.success("Profile is added successfully", {
+        toast.success("Profile Image saved successfully", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

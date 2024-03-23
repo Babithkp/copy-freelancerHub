@@ -1,32 +1,92 @@
 "use client";
-
 import Image from "next/image";
 import React, { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import ModalSavePayments from "./ModalSavePayments";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { addcard } from "@/lib/http/controller/userController";
+import { toast } from "react-toastify";
+import { VscLoading } from "react-icons/vsc";
 interface ModalPaypalType {
   isHidden: boolean;
   onClick: () => void;
+  userId: string;
 }
+
+type Inputs = {
+  cardNumber: number;
+  type: string;
+  expeiry: Date;
+  cvc: number;
+  address: string;
+};
 
 export default function ModalCreditCard({
   isHidden,
   onClick,
+  userId,
 }: ModalPaypalType) {
   const [selectCardType, setSelectCardType] = useState<string | null>(null);
   const [isHiddenSavePayments, setIsHiddenSavePayments] =
     useState<boolean>(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setIsSubmitting(true);
+    try{
+      const response = await addcard(userId, data);
+      if(response){
+        toast.success("Card saved successfully", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setIsSubmitting(false)
+        setIsHiddenSavePayments(!isHiddenSavePayments)
+      }else{
+        toast.error("Somthing went wrong", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setIsSubmitting(false)
+      }
+    }catch(err){
+      console.log(err);
+    }
+  };
   return (
     !isHidden && (
       <div className="absolute top-0 left-0 right-0 min-h-screen min-w-full bg-black bg-opacity-35 flex justify-center items-center z-10 px-2">
         <div className="bg-white p-2 w-full h-full md:rounded-md md:w-1/2 lg:w-1/3 ">
           <div className="flex justify-between border-b py-2 items-center">
-            <h1 className="text-xl font-semibold">Add your debit or credit card</h1>
+            <h1 className="text-xl font-semibold">
+              Add your debit or credit card
+            </h1>
             <button className="text-2xl" onClick={onClick}>
               <IoCloseOutline />
             </button>
           </div>
-          <div className="py-2 px-2 max-h-96 overflow-auto">
+          <form
+            className="py-2 px-2 max-h-96 overflow-auto"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div className="flex justify-center">
               <Image
                 src={"/images/pngwing.com.png"}
@@ -55,68 +115,116 @@ export default function ModalCreditCard({
             <div className="pt-2 space-y-3">
               <div>
                 <input
-                  type="text"
+                  style={
+                    {
+                      WebkitAppearance: "none",
+                      MozAppearance: "textfield",
+                    } as React.CSSProperties
+                  }
+                  type="number"
                   placeholder="Debit or credit card number"
-                  className="border rounded-md focus:outline-none text-sm px-2 w-full py-1.5 focus:border-[#4FBFA3]"
+                  className="appearance-none border rounded-md focus:outline-none text-sm px-2 w-full py-1.5 focus:border-[#4FBFA3]"
+                  {...register("cardNumber", {
+                    required: true,
+                    minLength: 16,
+                    maxLength: 16,
+                  })}
+                  maxLength={16}
                 />
+                {errors.cardNumber && (
+                  <p className="text-sm text-red-500">
+                    Please enter a valid card number
+                  </p>
+                )}
               </div>
               <select
-                name=""
                 id=""
                 className="border rounded-md focus:outline-none text-sm px-2 w-full py-1.5 focus:border-[#4FBFA3]"
-                onChange={(e: any) => setSelectCardType(e.target.value)}
+                {...register("type", { required: true })}
               >
                 <option value="">Select, your card type</option>
                 <option value="visa">Visa</option>
                 <option value="masterCard">Master Card</option>
               </select>
+              {errors.type && (
+                <p className="text-sm text-red-500">
+                  Please enter a valid Type
+                </p>
+              )}
               <div>
                 <input
                   type="month"
                   placeholder="Expiration date"
                   className="border rounded-md focus:outline-none text-sm px-2 w-full py-1.5 focus:border-[#4FBFA3]"
+                  {...register("expeiry", { required: true })}
                 />
+                {errors.expeiry && (
+                  <p className="text-sm text-red-500">
+                    Please enter a valid expeiry
+                  </p>
+                )}
               </div>
               <div className="flex justify-between items-center gap-5">
                 <input
-                  type="text"
+                  style={
+                    {
+                      WebkitAppearance: "none",
+                      MozAppearance: "textfield",
+                    } as React.CSSProperties
+                  }
+                  type="number"
                   placeholder="CVC"
                   className="border rounded-md focus:outline-none text-sm px-2 w-full py-1.5 focus:border-[#4FBFA3]"
+                  {...register("cvc", {
+                    required: true,
+                    minLength: 3,
+                    maxLength: 3,
+                  })}
+                  maxLength={3}
+                  minLength={3}
                 />
-                 <Image
-                src={
-                  selectCardType == "visa"
-                    ? "/images/png-transparent-visa-logo-mastercard-credit-card-payment-visa-blue-company-text.png"
-                    : selectCardType == "masterCard"
-                    ? "/svg/MasterCard_Logo.svg.png"
-                    : "/images/free-credit-card-icon-2056-thumb.png"
-                }
-                alt="credit"
-                width={50}
-                height={0}
-              />
+
+                <Image
+                  src={
+                    selectCardType == "visa"
+                      ? "/images/png-transparent-visa-logo-mastercard-credit-card-payment-visa-blue-company-text.png"
+                      : selectCardType == "masterCard"
+                      ? "/svg/MasterCard_Logo.svg.png"
+                      : "/images/free-credit-card-icon-2056-thumb.png"
+                  }
+                  alt="credit"
+                  width={50}
+                  height={0}
+                />
               </div>
+              {errors.cvc && (
+                <p className="text-sm text-red-500">Please enter a valid CVC</p>
+              )}
               <div>
                 <input
                   type="text"
                   placeholder="Billing address"
                   className="border rounded-md focus:outline-none text-sm px-2 w-full py-1.5 focus:border-[#4FBFA3]"
+                  {...register("address", { required: true, minLength: 10 })}
                 />
+                {errors.address && (
+                  <p className="text-sm text-red-500">
+                    Please enter a valid Address
+                  </p>
+                )}
               </div>
             </div>
             <div className="pt-3">
-              <button
-                onClick={() => setIsHiddenSavePayments(!isHiddenSavePayments)}
-                className="px-3 py-1.5 rounded-md text-sm font-semibold border border-[#4FBFA3] bg-[#4FBFA3] text-white w-full"
-              >
-                Link Card
+              <button className="px-3 py-1.5 rounded-md text-sm font-semibold border border-[#4FBFA3] bg-[#4FBFA3] text-white w-full">
+                {isSubmitting ? "Loading..." : "Link card"}
               </button>
             </div>
             <ModalSavePayments
               isHidden={isHiddenSavePayments}
               onClick={() => setIsHiddenSavePayments(!isHiddenSavePayments)}
+              userId={userId}
             />
-          </div>
+          </form>
         </div>
       </div>
     )

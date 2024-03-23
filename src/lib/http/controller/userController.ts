@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import UserRegistor from "../model/userRegister";
 import Services from "../model/services";
+import Card from "../model/card";
 
 type userRegistor = {
   profileUrl: string;
@@ -187,3 +188,25 @@ export const addNewService = async (
     console.log(error);
   }
 };
+
+
+export const addcard = async(userId: string,cardInfo:object)=>{
+  try{
+    await connectDB();
+    const newCard = new Card(cardInfo);
+    await newCard.save();
+    if(newCard){
+      const user = await UserRegistor.findOneAndUpdate({ user: userId },
+        {
+          card: newCard._id ,
+        }
+        );
+        if(user){
+          return true
+        }
+    }
+    return false
+  } catch (error) {
+    console.log(error);
+  }
+}

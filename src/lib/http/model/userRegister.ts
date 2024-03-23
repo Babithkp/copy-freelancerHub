@@ -1,5 +1,7 @@
 import mongoose, { Schema } from "mongoose";import { user } from "./user";
 import {service} from "./services";
+import {card} from "./card";
+
 export interface userRegistor extends mongoose.Document {
   profileUrl: string;
   ScreenName: string;
@@ -14,6 +16,7 @@ export interface userRegistor extends mongoose.Document {
   individual: object;
   company: object;
   services:service
+  card:card
 }
 
 export const UserRegistorSchema = new mongoose.Schema<userRegistor>({
@@ -62,6 +65,10 @@ export const UserRegistorSchema = new mongoose.Schema<userRegistor>({
     type: Schema.Types.ObjectId,
     ref: "Services",
   }],
+  card: {
+    type: Schema.Types.ObjectId,
+    ref: "Card",
+  },
 });
 
 export default mongoose.models.UserRegistor ||

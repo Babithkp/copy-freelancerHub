@@ -2,12 +2,15 @@
 
 import CardTransferMethod from "@/components/card/CardTransferMethod";
 import ModalCreditCard from "@/components/modal/ModalCreditCard";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 export default function AddPayment() {
   const [isHiddenCreditCard, setIsHiddenCreditCard] = useState<boolean>(true);
   const [isHiddenSavePayments, setIsHiddenSavePayments] =
     useState<boolean>(true);
+    const getUrl = usePathname();
+  const path = getUrl.split("/")[3];
   return (
     <section className="container mx-auto px-3 lg:px-64 min-h-[80vh] flex flex-col  items-center gap-5 py-10">
       {/* Enter your payments method */}
@@ -27,6 +30,7 @@ export default function AddPayment() {
       <ModalCreditCard
         isHidden={isHiddenCreditCard}
         onClick={() => setIsHiddenCreditCard(!isHiddenCreditCard)}
+        userId={path}
       />
       {/* end Enter your payments method */}
     </section>

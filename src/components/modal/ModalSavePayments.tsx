@@ -8,9 +8,11 @@ import { useRouter } from "next/navigation";
 interface ModalSavePaymentsType {
   isHidden: boolean;
   onClick: () => void;
+  userId: string;
 }
 
 export default function ModalSavePayments({
+  userId,
   isHidden,
   onClick,
 }: ModalSavePaymentsType) {
@@ -36,7 +38,7 @@ export default function ModalSavePayments({
             address you provide belongs to you
           </p>
           <div className="py-4 flex justify-center">
-            <Button onClick={() => router.push("/pro/dashboard")}>
+            <Button onClick={() => router.push(`/pro/dashboard/${userId}`)}>
               Go to dashboard
             </Button>
           </div>

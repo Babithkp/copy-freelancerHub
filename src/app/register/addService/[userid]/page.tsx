@@ -115,7 +115,7 @@ export default function AddServiceDedicatedResource() {
           theme: "light",
         });
         setIsSubmitting(false)
-        router.push("/register/addPayment")
+        router.push(`/register/addPayment/${path}`)
       }
     }catch(error){
       setIsSubmitting(false)
