@@ -12,7 +12,7 @@ export default function NavPayments() {
       </div>
       <div className="border-b py-2 text-sm">
         <div className="container mx-auto lg:px-12 space-x-1">
-          <Link
+          {/* <Link
             href={"/pro/payments"}
             className={`px-3 py-2  ${
               pathName == "/pro/payments"
@@ -21,7 +21,7 @@ export default function NavPayments() {
             }`}
           >
             Invoices
-          </Link>
+          </Link> */}
           <Link
             href={"/pro/payments/transfer-methods"}
             className={`px-3 py-2  ${

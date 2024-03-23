@@ -29,7 +29,7 @@ export default function AddServiceDedicatedResource() {
   const [thumbnail, setThumbnail] = useState<any>(null);
   const [thumbnailFile, setThumbnailFile] = useState<any>(null);
   const [editorValue, setEditorValue] = useState<any>("");
-  const [selectCategory, setSelectCategory] = useState<string | null>(null);
+  // const [selectCategory, setSelectCategory] = useState<string | null>(null);
   const [title,setTitle] = useState('')
   const [rateHr,setRateHr] = useState('')
   const [rateWeek,setRateweek] = useState('')
@@ -197,7 +197,7 @@ export default function AddServiceDedicatedResource() {
           {/* end service description */}
 
           {/* Service Category and skills */}
-          <h2 className="flex items-center gap-2 text-lg mt-5 mb-3">
+          {/* <h2 className="flex items-center gap-2 text-lg mt-5 mb-3">
             <VscTools className="text-[#4FBFA3]" />
             <span className="font-semibold">Service Category and Skills</span>
           </h2>
@@ -324,7 +324,7 @@ export default function AddServiceDedicatedResource() {
               </div>
             </div>
           )}
-          <div className="border-b" />
+          <div className="border-b" /> */}
           {/* end Service Category and skills */}
 
           {/* Service Cost */}

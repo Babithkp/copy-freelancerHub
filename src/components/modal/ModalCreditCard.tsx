@@ -6,7 +6,6 @@ import ModalSavePayments from "./ModalSavePayments";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { addcard } from "@/lib/http/controller/userController";
 import { toast } from "react-toastify";
-import { VscLoading } from "react-icons/vsc";
 interface ModalPaypalType {
   isHidden: boolean;
   onClick: () => void;
@@ -30,6 +29,23 @@ export default function ModalCreditCard({
   const [isHiddenSavePayments, setIsHiddenSavePayments] =
     useState<boolean>(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [ExprireInput, setExprireInput] = useState('')
+
+
+  const handleChange = (event:any) => {
+    const { value } = event.target;
+
+    // If the input value is empty or consists of only digits and "/"
+    if (/^\d*\/?\d*$/.test(value)) {
+      // Update the state with the new value
+      setExprireInput(value);
+
+      // If the length of the value is 2 after "/", append "/" to it
+      if (value.length === 2 && !value.includes('/')) {
+        setExprireInput(value + '/');
+      }
+    }
+  };
 
   const {
     register,
@@ -121,7 +137,7 @@ export default function ModalCreditCard({
                       MozAppearance: "textfield",
                     } as React.CSSProperties
                   }
-                  type="number"
+                  type="text"
                   placeholder="Debit or credit card number"
                   className="appearance-none border rounded-md focus:outline-none text-sm px-2 w-full py-1.5 focus:border-[#4FBFA3]"
                   {...register("cardNumber", {
@@ -141,6 +157,7 @@ export default function ModalCreditCard({
                 id=""
                 className="border rounded-md focus:outline-none text-sm px-2 w-full py-1.5 focus:border-[#4FBFA3]"
                 {...register("type", { required: true })}
+                onChange={(e)=>setSelectCardType(e.target.value)}
               >
                 <option value="">Select, your card type</option>
                 <option value="visa">Visa</option>
@@ -153,10 +170,13 @@ export default function ModalCreditCard({
               )}
               <div>
                 <input
-                  type="month"
-                  placeholder="Expiration date"
+                  type="text"
+                  placeholder="MM/YY"
                   className="border rounded-md focus:outline-none text-sm px-2 w-full py-1.5 focus:border-[#4FBFA3]"
-                  {...register("expeiry", { required: true })}
+                  {...register("expeiry", { required: true,minLength:5,maxLength:5 })}
+                  onChange={handleChange}
+                  value={ExprireInput}
+                  maxLength={5}
                 />
                 {errors.expeiry && (
                   <p className="text-sm text-red-500">
@@ -172,7 +192,7 @@ export default function ModalCreditCard({
                       MozAppearance: "textfield",
                     } as React.CSSProperties
                   }
-                  type="number"
+                  type="text"
                   placeholder="CVC"
                   className="border rounded-md focus:outline-none text-sm px-2 w-full py-1.5 focus:border-[#4FBFA3]"
                   {...register("cvc", {
@@ -181,16 +201,17 @@ export default function ModalCreditCard({
                     maxLength: 3,
                   })}
                   maxLength={3}
-                  minLength={3}
                 />
 
                 <Image
                   src={
-                    selectCardType == "visa"
-                      ? "/images/png-transparent-visa-logo-mastercard-credit-card-payment-visa-blue-company-text.png"
-                      : selectCardType == "masterCard"
-                      ? "/svg/MasterCard_Logo.svg.png"
-                      : "/images/free-credit-card-icon-2056-thumb.png"
+                    // selectCardType == "visa"
+                    //   ? "/images/png-transparent-visa-logo-mastercard-credit-card-payment-visa-blue-company-text.png"
+                    //   : selectCardType == "masterCard"
+                    //   ? "/svg/MasterCard_Logo.svg.png"
+                    //   : "/images/free-credit-card-icon-2056-thumb.png"
+                    // "/images/credit-card-cvv.png"
+                    "/images/security_code_back-512.webp"
                   }
                   alt="credit"
                   width={50}
@@ -215,7 +236,9 @@ export default function ModalCreditCard({
               </div>
             </div>
             <div className="pt-3">
-              <button className="px-3 py-1.5 rounded-md text-sm font-semibold border border-[#4FBFA3] bg-[#4FBFA3] text-white w-full">
+              <button
+              disabled={isSubmitting ? true : false}
+              className="px-3 py-1.5 rounded-md text-sm font-semibold border border-[#4FBFA3] bg-[#4FBFA3] text-white w-full">
                 {isSubmitting ? "Loading..." : "Link card"}
               </button>
             </div>

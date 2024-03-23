@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosLogIn } from "react-icons/io";
 import { RxPencil2 } from "react-icons/rx";
@@ -11,10 +11,40 @@ import { usePathname } from "next/navigation";
 import { IoCloseSharp, IoSearch } from "react-icons/io5";
 import { IoChatboxSharp } from "react-icons/io5";
 import { IoNotifications } from "react-icons/io5";
+import { getUserRegisterInfo } from "@/lib/http/controller/userController";
 
 export default function Navbar() {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
+  const [profileUrl,setProfileUrl] = useState<any>();
   const pathName = usePathname();
+
+  useEffect(()=>{
+    async function fetch(){
+      if (typeof localStorage !== "undefined") {
+        const value = localStorage.getItem("userId");
+        if (value) {
+          const filter = JSON.parse(value);
+          try{
+            const response = await getUserRegisterInfo(filter)
+            if(response){
+              const filter = JSON.parse(response)
+              setProfileUrl(filter.profileUrl)
+            }
+          }catch(e){
+            console.log(e);
+            
+          }
+        }}
+      }
+      fetch()
+      },[])
+
+  function logoutHandler(){
+    if (typeof localStorage !== "undefined"){
+      const value = localStorage.removeItem("userId");
+      const value2 = localStorage.removeItem("token");
+    }
+  }
 
   return pathName.startsWith("/pro") ? (
     <div className="border-b bg-[#F5F5F5]">
@@ -80,14 +110,14 @@ export default function Navbar() {
                     There are no alerts to display.
                   </p>
                 </div>
-                <div className=" border-t flex justify-center items-center">
+                {/* <div className=" border-t flex justify-center items-center">
                   <Link
                     href={"#"}
                     className="text-blue-500 hover:underline text-xs pt-1.5"
                   >
                     View All Message
                   </Link>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -98,7 +128,7 @@ export default function Navbar() {
                 className="flex items-center gap-1 hover:scale-105 duration-200"
               >
                 <Image
-                  src={"https://placehold.co/100x100.png"}
+                  src={profileUrl || "https://placehold.co/100x100.png"}
                   className="rounded-md"
                   alt="default"
                   width={30}
@@ -121,7 +151,7 @@ export default function Navbar() {
                   <Link href={"#"}>Help</Link>
                 </li>
                 <li>
-                  <Link href={"#"}>Logout</Link>
+                  <Link href={"/"} onClick={logoutHandler}>Logout</Link>
                 </li>
               </ul>
             </div>
