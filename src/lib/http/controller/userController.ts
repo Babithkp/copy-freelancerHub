@@ -19,7 +19,6 @@ type userRegistor = {
   postalCode: number;
   neigborhood: string;
   user: string;
-  tagline:String;
 };
 
 export const addNewUser = async (
