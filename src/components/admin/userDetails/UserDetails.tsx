@@ -1,5 +1,4 @@
-"use client";
-import { getUserAllInfo } from "@/lib/http/controller/userController";
+"use client";import { getUserAllInfo } from "@/lib/http/controller/userController";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -44,7 +43,7 @@ interface user {
     description: String;
     rateHr: String;
     rateWeek: String;
-    thumbnailUrl: String;
+    thumbnailUrl: any;
   }[];
 }
 [];
@@ -213,16 +212,18 @@ export default function UserDetails() {
               {userInfo?.services?.map((service, i) => (
                 <div key={i}>
                   <div className="flex gap-2 flex-col">
-                    <div className="w-[7rem] h-[7rem]">
-                      <Image
-                        src={"https://placehold.co/400x400/png "}
-                        alt="default image"
-                        width={200}
-                        height={200}
-                        loading="lazy"
-                        className="border h-full w-full rounded-lg object-cover drop-shadow-lg p-2"
-                      />
-                    </div>
+                    {service.thumbnailUrl && (
+                      <div className="w-[7rem] h-[7rem]">
+                        <Image
+                          src={service.thumbnailUrl}
+                          alt="default image"
+                          width={200}
+                          height={200}
+                          loading="lazy"
+                          className="border h-full w-full rounded-lg object-cover drop-shadow-lg p-2"
+                        />
+                      </div>
+                    )}
                   </div>
                   <div className="flex gap-2">
                     <label className="font-medium ">Title:</label>
