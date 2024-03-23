@@ -30,23 +30,23 @@ export default function AdminContainer() {
         fetch()
     },[])
   return (
-    <div className="flex justify-center my-10">
-      <table className="border-collapse w-[80%] max-sm:w-full">
+    <div className="flex justify-center my-10 max-sm:text-[.6rem]">
+      <table className="border-collapse w-[80%] max-sm:w-full font-medium">
         <thead>
           <tr>
-            <th className="p-2 boder border-2">Name</th>
-            <th className="p-2 boder border-2">Email</th>
-            <th className="p-2 boder border-2">Password</th>
-            <th className="p-2 boder border-2">Data</th>
+            <th className="p-2 max-sm:p-1 boder border-2">Name</th>
+            <th className="p-2 max-sm:p-1  boder border-2">Email</th>
+            <th className="p-2 max-sm:p-1  boder border-2">Password</th>
+            <th className="p-2 max-sm:p-1  boder border-2">Data</th>
           </tr>
         </thead>
         <tbody>
             {user?.map(user=>(
                 <tr key={user._id}>
-                <td className="p-2 boder border-2">{user.fullName}</td>
-                <td className="p-2 boder border-2">{user.email}</td>
-                <td className="p-2 boder border-2">{user.password}</td>
-                <td className="p-2 boder border-2 text-center">
+                <td className="p-2 max-sm:p-1  boder border-2">{user.fullName}</td>
+                <td className="p-2 max-sm:p-1  boder border-2">{user.email}</td>
+                <td className="p-2 max-sm:p-1  boder border-2">{user.password}</td>
+                <td className="p-2 max-sm:p-1  boder border-2 text-center">
                   <Button onClick={()=>buttonClickHandler(user._id)}>Open</Button>
                 </td>
               </tr>
