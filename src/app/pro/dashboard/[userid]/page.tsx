@@ -1,10 +1,34 @@
+"use client"
+import { getUserRegisterInfo } from "@/lib/http/controller/userController";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { FaUserPen } from "react-icons/fa6";
 import { MdAddBox, MdCardMembership, MdOutlineVerified } from "react-icons/md";
 
 export default function Dashboard() {
+  const [userProfileImage,setUserProfileImage] = useState("")
+  const [userName,setUserName] = useState("")
+  const getUrl = usePathname();
+  const path = getUrl.split("/")[3];
+  
+  useEffect(()=>{
+    async function fetch(){
+      try{
+        const response = await getUserRegisterInfo(path)
+        if(response){
+          const filter = JSON.parse(response)
+          setUserProfileImage(filter.profileUrl)
+          setUserName(filter.ScreenName)
+        }
+      }catch(err){
+        console.log(err);
+        
+      }
+    }
+    fetch()
+  },[])
   return (
     <div className="">
       <div className="border-b">
@@ -16,15 +40,18 @@ export default function Dashboard() {
         {/* profile */}
         <div className="bg-[#FAFAFA] border rounded flex-1">
           <div className="py-5 border-b flex flex-col justify-center items-center gap-2">
-            <Image
-              src={"https://placehold.co/400x400/png"}
-              alt="default"
-              width={50}
-              height={50}
-              loading="lazy"
-            />
+          <div className="w-[7rem] h-[7rem]">
+              <Image
+                src={userProfileImage || "https://placehold.co/400x400/png "}
+                alt="default image"
+                width={200}
+                height={200}
+                loading="lazy"
+                className="border h-full w-full rounded-lg object-cover drop-shadow-lg p-2"
+              />
+            </div>
             <h2 className="text-[#2777C6] font-semibold text-base">
-              User Name
+              {userName ? userName : "User Name"}
             </h2>
             <div className="text-sm font-[500]">
               $0 <span className="text-gray-400">earned/yr</span> ·{" "}

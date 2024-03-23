@@ -580,7 +580,7 @@ export default function CompleteYourProfile() {
             <div className="font-[500] flex flex-col sm:flex-row gap-3 sm:items-center pb-10 pt-5">
               <div className="w-1/5" />
               <div className="flex-1">
-                <Button>
+                <Button disabled={isSubmitting ? true : false}>
                   {isSubmitting ? (
                     <div className="animate-spin">
                       <VscLoading size={25} />

@@ -210,3 +210,35 @@ export const addcard = async(userId: string,cardInfo:object)=>{
     console.log(error);
   }
 }
+
+export const getUserRegisterInfo = async(userId:string)=>{
+  try{
+    await connectDB();
+    const user = await UserRegistor.findOne({user:userId});
+    if(user){
+      const filter = JSON.stringify(user)
+      return filter
+    }else{
+      return false
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const getUserCardInfo = async(userId:string)=>{
+  try{
+    await connectDB();
+    const user = await UserRegistor.findOne({user:userId}).populate("card").exec();
+    if(user){
+      const filter = JSON.stringify(user.card)
+      return filter
+    }else{
+      return false
+    }
+    
+
+  } catch (error) {
+    console.log(error);
+  }
+}

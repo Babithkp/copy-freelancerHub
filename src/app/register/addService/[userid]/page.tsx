@@ -407,7 +407,7 @@ export default function AddServiceDedicatedResource() {
         </div>
       </div>
       <div className="mt-10 space-x-4 mb-10 sm:">
-        <Button>
+        <Button disabled={isSubmitting ? true : false}>
         {isSubmitting ? (
                     <div className="animate-spin">
                       <VscLoading size={25} />
