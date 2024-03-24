@@ -1,5 +1,4 @@
-"use client";
-import Button from "@/components/button/Button";
+"use client";import Button from "@/components/button/Button";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import React, { ChangeEvent, useEffect, useState } from "react";
@@ -23,8 +22,8 @@ type Inputs = {
   screenName: string;
   tagline: string;
   bio: string;
-  identityFileUrl: string;
-  addressFileUrl: string;
+  identityFileUrl: any[];
+  addressFileUrl: any[];
   companyHistory: string;
   since: string;
   teamPicUrl: string;
@@ -33,12 +32,12 @@ type Inputs = {
 export default function CompleteYourProfile() {
   const [iam, setIam] = useState<boolean>(true);
   const [selectedImage, setSelectedImage] = useState<any>(null);
-  const [selectedTeamImage, setSelectedTeamImage] = useState<any>(null);
-  const [selectedTeamImageFile, setSelectedTeamImageFile] = useState<any>(null);
-  const [uploadDocument, setUploadDocument] = useState<string | null>("");
-  const [uploadDocumentFile, setUploadDocumentFile] = useState<any>(null);
-  const [uploadDocument2, setUploadDocument2] = useState<string | null>("");
-  const [uploadDocument2File, setUploadDocument2File] = useState<any>(null);
+  // const [selectedTeamImage, setSelectedTeamImage] = useState<any>(null);
+  // const [selectedTeamImageFile, setSelectedTeamImageFile] = useState<any>(null);
+  const [uploadDocument, setUploadDocument] = useState<string[] | []>([]);
+  const [uploadDocumentFile, setUploadDocumentFile] = useState<any[] | []>([]);
+  const [uploadDocument2, setUploadDocument2] = useState<string[] | []>([]);
+  const [uploadDocument2File, setUploadDocument2File] = useState<any[] | []>([]);
   const [identityError, setIdentityError] = useState<boolean | string>(false);
   const [addressError, setAddressError] = useState<boolean | string>(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -50,31 +49,31 @@ export default function CompleteYourProfile() {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setUploadDocument(file.name);
-      setUploadDocumentFile(file);
+      setUploadDocument((prev) => [...prev, file.name]);
+      setUploadDocumentFile((prev) => [...prev, file]);
       setIdentityError(false);
     } else {
-      setUploadDocument("");
+      setUploadDocument([]);
     }
   };
 
-  const handleDeleteFile = () => {
-    setUploadDocument(null);
+  const handleDeleteFile = (fileName:string) => {
+    setUploadDocument(prev => prev.filter(file => file !== fileName));
   };
 
   const handleFileChange2 = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setUploadDocument2(file.name);
-      setUploadDocument2File(file);
+      setUploadDocument2((prev) => [...prev, file.name]);
+      setUploadDocument2File((prev) => [...prev, file]);
       setAddressError(false);
     } else {
-      setUploadDocument2("");
+      setUploadDocument2([]);
     }
   };
 
-  const handleDeleteFile2 = () => {
-    setUploadDocument2(null);
+  const handleDeleteFile2 = (fileName:string) => {
+    setUploadDocument2(prev => prev.filter(file => file !== fileName));
   };
 
   const handleImageChange = (event: any) => {
@@ -88,17 +87,17 @@ export default function CompleteYourProfile() {
       changeProfileImageToStorage(file);
     }
   };
-  const teamImageChange = (event: any) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader() as any;
-      reader.onloadend = () => {
-        setSelectedTeamImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-      setSelectedTeamImageFile(file);
-    }
-  };
+  // const teamImageChange = (event: any) => {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader() as any;
+  //     reader.onloadend = () => {
+  //       setSelectedTeamImage(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //     setSelectedTeamImageFile(file);
+  //   }
+  // };
 
   async function changeProfileImageToStorage(file: any) {
     const storageRef = ref(storage, `userProfileImages/${file.name + v4()}`);
@@ -134,7 +133,7 @@ export default function CompleteYourProfile() {
       }
     }
   }
-  
+
   async function addressFileToStorage(file: any) {
     const storageRef = ref(storage, `userAddressFile/${file.name + v4()}`);
     const response = await uploadBytes(storageRef, file);
@@ -155,6 +154,8 @@ export default function CompleteYourProfile() {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    let identityFileUrl
+    let addressFileUrl
     setIsSubmitting(true);
     // teamPicUrl
     if (!uploadDocument) {
@@ -167,39 +168,37 @@ export default function CompleteYourProfile() {
       setIsSubmitting(false);
       return;
     }
-    if (selectedTeamImage) {
-      const teamUrl = await teamImageToStorage(selectedTeamImageFile);
-      if (teamUrl) {
-        data.teamPicUrl = teamUrl;
-      }
-    }
+    // if (selectedTeamImage) {
+    //   const teamUrl = await teamImageToStorage(selectedTeamImageFile);
+    //   if (teamUrl) {
+    //     data.teamPicUrl = teamUrl;
+    //   }
+    // }
     // identityFile
     if (uploadDocument) {
-      const identityUrl = await identityFileToStorage(uploadDocumentFile);
-      if (identityUrl) {
-        data.identityFileUrl = identityUrl;
+      const IdProofPromises = uploadDocumentFile.map(file => identityFileToStorage(file));
+      const IdProof = await Promise.all(IdProofPromises);
+      if (IdProof) {
+        identityFileUrl = IdProof;
       }
     }
     // addressFile
     if (uploadDocument2) {
-      const addressUrl = await addressFileToStorage(uploadDocument2File);
-      if (addressUrl) {
-        data.addressFileUrl = addressUrl;
+      const IdProofPromises = uploadDocument2File.map(file => identityFileToStorage(file));
+      const IdProof = await Promise.all(IdProofPromises);
+      if (IdProof) {
+        addressFileUrl = IdProof;
       }
     }
 
     const Individual = {
       tagline: data.tagline,
       bio: data.bio,
-      identityFileUrl: data.identityFileUrl,
-      addressFileUrl: data.addressFileUrl,
     };
 
     const company = {
       tagline: data.tagline,
       companyHistory: data.companyHistory,
-      since: data.since,
-      teamImageUrl: data.teamPicUrl,
     };
     try {
       if (iam) {
@@ -207,7 +206,9 @@ export default function CompleteYourProfile() {
           path,
           Individual,
           false,
-          selectedImage
+          selectedImage,
+          identityFileUrl,
+          addressFileUrl
         );
         if (response) {
           toast.success("Profile created successfully", {
@@ -228,7 +229,9 @@ export default function CompleteYourProfile() {
           path,
           false,
           company,
-          selectedImage
+          selectedImage,
+          identityFileUrl,
+          addressFileUrl
         );
         if (response) {
           toast.success("Profile created successfully", {
@@ -431,15 +434,15 @@ export default function CompleteYourProfile() {
                     </div>
                   </div>
                 </label>
-                <label className="font-[500] flex flex-col sm:flex-row gap-3 sm:items-center ">
+                {/* <label className="font-[500] flex flex-col sm:flex-row gap-3 sm:items-center ">
                   <div className="sm:w-1/5 sm:text-right">Operating since</div>
                   <input
                     type="text"
                     className="border flex-1 px-3 py-1.5 rounded focus:outline-none focus:border-[#4FBFA3]"
                     {...register("since")}
                   />
-                </label>
-                <label className="font-[500] flex flex-col sm:flex-row gap-3 sm:items-center ">
+                </label> */}
+                {/* <label className="font-[500] flex flex-col sm:flex-row gap-3 sm:items-center ">
                   <div className="sm:w-1/5 sm:text-right">
                     Featured Team Members
                   </div>
@@ -465,7 +468,7 @@ export default function CompleteYourProfile() {
                       onChange={teamImageChange}
                     />
                   </div>
-                </label>
+                </label> */}
               </div>
             )}
             <label className="font-[500] flex flex-col sm:flex-row sm:gap-3 sm:items-center pt-4">
@@ -480,10 +483,10 @@ export default function CompleteYourProfile() {
                   >
                     <div className="text-[#4FBFA3] border rounded-full p-4 w-fit relative hover:scale-105 duration-200">
                       <MdPermIdentity className="scale-150" />
-                      {!uploadDocument && (
+                      {(uploadDocument.length === 0)  && (
                         <CiCirclePlus className="absolute top-0 right-0 scale-75" />
                       )}
-                      {uploadDocument && (
+                      {uploadDocument.length > 0 && (
                         <GoDotFill
                           className="absolute -top-1 -right-1 scale-75 "
                           size={20}
@@ -491,9 +494,6 @@ export default function CompleteYourProfile() {
                       )}
                     </div>
                     <div className="text-xs text-gray-400 pt-1">
-                      Upload ID: International passport, Driver’s license, or
-                      National Identity Card.
-                    </div>
                     <input
                       type="file"
                       name="uploadDocument"
@@ -501,20 +501,23 @@ export default function CompleteYourProfile() {
                       className="hidden"
                       onChange={handleFileChange}
                     />
+                      Upload ID: International passport, Driver’s license, or
+                      National Identity Card.
+                    </div>
                   </label>
-                  {uploadDocument && (
-                    <div className="mt-3">
+                  {uploadDocument.map((fileName, i) => (
+                    <div className="mt-3" key={i}>
                       <div className="text-xs flex items-center gap-1 bg-gray-300 rounded-md px-2 py-1 w-fit">
-                        <div>{uploadDocument}</div>
+                        <div>{fileName}</div>
                         <div
-                          onClick={handleDeleteFile}
+                          onClick={()=>handleDeleteFile(fileName)}
                           className="bg-red-600 text-white rounded-full w-fit p-0.5 hover:scale-105 duration-200 cursor-pointer"
                         >
                           <IoCloseSharp />
                         </div>
                       </div>
                     </div>
-                  )}
+                  ))}
                   {identityError && (
                     <p className="text-red-400">{identityError}</p>
                   )}
@@ -534,10 +537,10 @@ export default function CompleteYourProfile() {
                   >
                     <div className="text-[#4FBFA3] border rounded-full p-4 w-fit relative hover:scale-105 duration-200">
                       <FaRegAddressBook className="scale-150" />
-                      {!uploadDocument2 && (
+                      {(uploadDocument2.length === 0) && (
                         <CiCirclePlus className="absolute top-0 right-0 scale-75" />
                       )}
-                      {uploadDocument2 && (
+                      {uploadDocument2.length > 0 && (
                         <GoDotFill
                           className="absolute -top-1 -right-1 scale-75 "
                           size={20}
@@ -557,19 +560,19 @@ export default function CompleteYourProfile() {
                       />
                     </div>
                   </label>
-                  {uploadDocument2 && (
-                    <div className="mt-3">
+                  {uploadDocument2.map((fileName, i) => (
+                    <div className="mt-3" key={i}>
                       <div className="text-xs flex items-center gap-1 bg-gray-300 rounded-md px-2 py-1 w-fit">
-                        <div>{uploadDocument2}</div>
+                        <div>{fileName}</div>
                         <div
-                          onClick={handleDeleteFile2}
+                          onClick={()=>handleDeleteFile2(fileName)}
                           className="bg-red-600 text-white rounded-full w-fit p-0.5 hover:scale-105 duration-200 cursor-pointer"
                         >
                           <IoCloseSharp />
                         </div>
                       </div>
                     </div>
-                  )}
+                  ))}
                   {addressError && (
                     <p className="text-red-400">{addressError}</p>
                   )}

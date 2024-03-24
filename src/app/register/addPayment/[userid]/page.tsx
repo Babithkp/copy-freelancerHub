@@ -18,7 +18,7 @@ export default function AddPayment() {
         <div className="py-2 border-b text-xs bg-[#FAFAFA] px-6">
           <h1 className="text-xl font-[400]">Add a Withdrawal Method</h1>
         </div>
-        <p className="text-sm p-2 md:p-5">Add your withdrawal method to receive your work earnings instantly to your bank account through PayPal.</p>
+        <p className="text-sm p-2 md:p-5">Add your withdrawal method to receive your work earnings directly to your bank account through PayPal.</p>
         <div className="space-y-3 px-2 md:px-5">
           <CardTransferMethod
             imageUrl="/images/method-paypal_kfczli.png"

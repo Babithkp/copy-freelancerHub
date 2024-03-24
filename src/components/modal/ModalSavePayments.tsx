@@ -34,8 +34,7 @@ export default function ModalSavePayments({
             Congrats! You{"'"}re all Set
           </h1>
           <p className="text-wrap text-sm text-center py-2">
-            We{"'"}ve emailed you confirmation link to verify that the email
-            address you provide belongs to you
+          We will email you once your profile has been activated
           </p>
           <div className="py-4 flex justify-center">
             <Button onClick={() => router.push(`/pro/dashboard/${userId}`)}>

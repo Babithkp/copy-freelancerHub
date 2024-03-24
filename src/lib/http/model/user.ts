@@ -22,7 +22,7 @@ export const UserSchema = new mongoose.Schema<user>({
     },
     token:{
         type: String,
-        default: null,
+        default: "20",
     }
 })
 

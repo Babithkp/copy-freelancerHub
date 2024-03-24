@@ -103,7 +103,7 @@ export default function VerifyCard() {
   return (
     <section className="container mx-auto px-3 lg:w-1/3 md:w-1/2 lg:py-10 py-5">
       <div className="text-sm pt-2">
-        We will charge $1.95 to your card. Enter the 4-digit code that appears next to the charged amount and upload your bank statement to verify your credit or debit card.
+        We will charge $1.95 to your card. Enter the 4-digit code that appears next to the charged amount and upload your bank statement to verify your card.
       </div>
       <div className="border border-dashed mt-3">
         <div className="text-xs text-center border-separate py-1">
@@ -121,7 +121,7 @@ export default function VerifyCard() {
           maxLength={4}
           onChange={(e)=>setCodeMatch(e.target.value)}
         />
-        {codeMatchError&& <p className="text-red-400 text-sm">Please enter the last 4 digit card number</p>}
+        {codeMatchError&& <p className="text-red-400 text-sm">Please enter the 4 digit code</p>}
         <div className="pt-3 text-sm">
           <label htmlFor="selectDocumentCard">
             <div className="px-3 py-1.5 border rounded-md ">
@@ -140,7 +140,7 @@ export default function VerifyCard() {
               id="selectDocumentCard"
               onChange={handleFileChange2}
             />
-            {toVerifyDocFileError && <p className="text-red-400 text-sm">Please select Document</p>}
+            {toVerifyDocFileError && <p className="text-red-400 text-sm">Upload documents</p>}
           </label>
 
         </div>

@@ -1,5 +1,4 @@
-"use server";
-import bcrypt from "bcrypt";
+"use server";import bcrypt from "bcrypt";
 import { connectDB } from "../connectDB";
 import User, { user } from "../model/user";
 import mongoose from "mongoose";
@@ -56,8 +55,8 @@ export const addNewUser = async (
 export const userLogin = async (email: string, password: string) => {
   try {
     await connectDB();
-    if(email === "admin@gmail.com" && password === "admin"){
-      return "admin"
+    if (email === "admin@gmail.com" && password === "admin") {
+      return "admin";
     }
     const userInfo = await User.findOne({ email: email });
     if (userInfo) {
@@ -66,9 +65,11 @@ export const userLogin = async (email: string, password: string) => {
           expiresIn: "2h",
         });
         const filter = JSON.stringify(userInfo._id);
+        const progress = JSON.stringify(userInfo.token);
         const req = {
           id: filter,
           token: token,
+          progress: progress,
         };
         return req;
       }
@@ -83,6 +84,8 @@ export const userLogin = async (email: string, password: string) => {
 export const addUserIdentity = async (userInfo: userRegistor) => {
   try {
     await connectDB();
+    mongoose.model("User", User.schema);
+    const user = await User.findByIdAndUpdate(userInfo.user, { token: "40" });
     const registerUserInfo = new UserRegistor(userInfo);
     await registerUserInfo.save();
     if (registerUserInfo) {
@@ -98,6 +101,7 @@ export const addUserIdentity = async (userInfo: userRegistor) => {
 export const getUserIdentity = async (id: string) => {
   try {
     await connectDB();
+
     const userInfo = await UserRegistor.findOne({ user: id });
     if (userInfo) {
       const filter = JSON.stringify(userInfo);
@@ -114,17 +118,22 @@ export const updateRegiterProfile = async (
   id: string,
   individual: object | boolean,
   company: object | boolean,
-  profileUrl: string
+  profileUrl: string,
+  identityFileUrl: any,
+  addressFileUrl: any,
 ) => {
   try {
     await connectDB();
     mongoose.model("UserRegistor", UserRegistor.schema);
+    const user = await User.findByIdAndUpdate(id, { token: "60" });
     if (individual) {
       const userInfo = await UserRegistor.findOneAndUpdate(
         { user: id },
         {
           profileUrl: profileUrl,
           individual: individual,
+          identityFileUrl,
+          addressFileUrl
         }
       );
       if (userInfo) {
@@ -155,11 +164,11 @@ export const addNewService = async (
   description: string,
   rateHr: string,
   rateWeek: string,
-  thumbnailUrl: string | undefined,
+  thumbnailUrl: string | undefined
 ) => {
   try {
     await connectDB();
-
+    const users = await User.findByIdAndUpdate(userId, { token: "80" });
     const user = await UserRegistor.findOne({ user: userId });
     if (user) {
       const newService = new Services({
@@ -170,7 +179,7 @@ export const addNewService = async (
         thumbnailUrl,
         user: user._id,
       });
-      await newService.save()
+      await newService.save();
       if (newService) {
         const userInfo = await UserRegistor.findOneAndUpdate(
           { user: userId },
@@ -181,115 +190,122 @@ export const addNewService = async (
 
         if (userInfo) {
           console.log("new service added to register");
-          return true
+          return true;
         }
       }
-    }else{
-      return false
+    } else {
+      return false;
     }
   } catch (error) {
     console.log(error);
   }
 };
 
-
-export const addcard = async(userId: string,cardInfo:object)=>{
-  try{
+export const addcard = async (userId: string, cardInfo: object) => {
+  try {
     await connectDB();
+    const users = await User.findByIdAndUpdate(userId, { token: "100" });
     const newCard = new Card(cardInfo);
     await newCard.save();
-    if(newCard){
-      const user = await UserRegistor.findOneAndUpdate({ user: userId },
+    if (newCard) {
+      const user = await UserRegistor.findOneAndUpdate(
+        { user: userId },
         {
-          card: newCard._id ,
+          card: newCard._id,
         }
-        );
-        if(user){
-          return true
-        }
+      );
+      if (user) {
+        return true;
+      }
     }
-    return false
+    return false;
   } catch (error) {
     console.log(error);
   }
-}
+};
 
-export const getUserRegisterInfo = async(userId:string)=>{
-  try{
+export const getUserRegisterInfo = async (userId: string) => {
+  try {
     await connectDB();
-    const user = await UserRegistor.findOne({user:userId});
-    if(user){
-      const filter = JSON.stringify(user)
-      return filter
-    }else{
-      return false
+    const user = await UserRegistor.findOne({ user: userId });
+    if (user) {
+      const filter = JSON.stringify(user);
+      return filter;
+    } else {
+      return false;
     }
   } catch (error) {
     console.log(error);
   }
-}
+};
 
-export const getUserCardInfo = async(userId:string)=>{
-  try{
+export const getUserCardInfo = async (userId: string) => {
+  try {
     await connectDB();
-    const user = await UserRegistor.findOne({user:userId}).populate("card").exec();
-    if(user){
-      const filter = JSON.stringify(user.card)
-      return filter
-    }else{
-      return false
+    const user = await UserRegistor.findOne({ user: userId })
+      .populate("card")
+      .exec();
+    if (user) {
+      const filter = JSON.stringify(user.card);
+      return filter;
+    } else {
+      return false;
     }
-    
   } catch (error) {
     console.log(error);
   }
-}
+};
 
-export const addDocToVerify = async(userId:string,docInfo:object)=>{
-  try{
+export const addDocToVerify = async (userId: string, docInfo: object) => {
+  try {
     await connectDB();
     mongoose.model("UserRegistor", UserRegistor.schema);
-    const user = await UserRegistor.findOneAndUpdate({user:userId},{
-      $push: {verifyDoc: docInfo}
-    });
-    if(user){
-      return true
-    }else{
-      return false
+    const user = await UserRegistor.findOneAndUpdate(
+      { user: userId },
+      {
+        $push: { verifyDoc: docInfo },
+      }
+    );
+    if (user) {
+      return true;
+    } else {
+      return false;
     }
-   } catch (error) {
-    console.log(error);
-  }
-}
-
-export const getAllUserData = async() => {
-  try{
-    await connectDB();
-    const user = await User.find()
-    if(user){
-      const filter = JSON.stringify(user)
-      return filter
-    }else{
-      return false
-    }
-  }catch (error){
-    console.log(error);
-    
-  }
-}
-
-export const getUserAllInfo = async(userId:string)=>{
-  try{
-    await connectDB();
-    const user = await UserRegistor.findOne({user:userId}).populate("card").populate("services").populate("verifyDoc").exec();
-    if(user){
-      const filter = JSON.stringify(user)
-      return filter
-    }else{
-      return false
-    }
-    
   } catch (error) {
     console.log(error);
   }
-}
+};
+
+export const getAllUserData = async () => {
+  try {
+    await connectDB();
+    const user = await User.find();
+    if (user) {
+      const filter = JSON.stringify(user);
+      return filter;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserAllInfo = async (userId: string) => {
+  try {
+    await connectDB();
+    const user = await UserRegistor.findOne({ user: userId })
+      .populate("card")
+      .populate("services")
+      .populate("verifyDoc")
+      .exec();
+    if (user) {
+      const filter = JSON.stringify(user);
+      return filter;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};

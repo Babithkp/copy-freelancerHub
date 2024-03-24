@@ -125,14 +125,14 @@ export default function Navbar() {
               <div
                 tabIndex={0}
                 role="button"
-                className="flex items-center gap-1 hover:scale-105 duration-200"
+                className="flex items-center gap-1 hover:scale-105 duration-200 w-[1.5rem] h-[1.5rem]"
               >
                 <Image
                   src={profileUrl || "https://placehold.co/100x100.png"}
-                  className="rounded-md"
+                  className="rounded-md w-full h-full"
                   alt="default"
-                  width={30}
-                  height={30}
+                  width={200}
+                  height={200}
                 />
                 <IoIosArrowDown className="scale-50" />
               </div>

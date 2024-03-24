@@ -15,6 +15,8 @@ export interface userRegistor extends mongoose.Document {
   user: user;
   individual: object;
   company: object;
+  identityFileUrl:string[]
+  addressFileUrl:string[]
   services:service
   card:card
   verifyDoc: object
@@ -64,6 +66,12 @@ export const UserRegistorSchema = new mongoose.Schema<userRegistor>({
   },
   verifyDoc: [{
     type: Object,
+  }],
+  identityFileUrl: [{
+    type: String,
+  }],
+  addressFileUrl: [{
+    type: String,
   }],
   services: [{
     type: Schema.Types.ObjectId,

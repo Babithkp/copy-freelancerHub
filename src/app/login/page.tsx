@@ -46,8 +46,17 @@ export default function Login() {
             progress: undefined,
             theme: "light",
           });
+          const progress = JSON.parse(response.progress)
           setIsSubmitting(false)
-          router.replace(`/register/pro/${userid}`)
+          if(progress==="20"){
+            router.replace(`/register/pro/${userid}`)
+          }else if(progress==="40"){
+            router.replace(`/register/completeYourProfile/${userid}`)
+          }else if(progress==="60"){
+            router.replace(`/register/addService/${userid}`)
+          }else if(progress ==="80"){
+            router.replace(`/register/addPayment/${userid}`)
+          }
         }
       }else{
         toast.error('Failed to Loggin, try again', {
