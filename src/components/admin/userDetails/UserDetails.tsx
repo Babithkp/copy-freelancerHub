@@ -1,4 +1,5 @@
-"use client";import { getUserAllInfo } from "@/lib/http/controller/userController";
+"use client";
+import { getUserAllInfo } from "@/lib/http/controller/userController";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -45,6 +46,8 @@ interface user {
     rateWeek: String;
     thumbnailUrl: any;
   }[];
+  identityFileUrl: string[];
+  addressFileUrl: string[];
 }
 [];
 
@@ -103,7 +106,7 @@ export default function UserDetails() {
             </div>
             <div className="flex gap-2">
               <label className="font-medium">State:</label>
-              <p>{userInfo?.state || "State"}</p>
+              <p>{userInfo?.state || "Not added"}</p>
             </div>
             <div className="flex gap-2">
               <label className="font-medium">Postal Code:</label>
@@ -136,7 +139,7 @@ export default function UserDetails() {
                   <label className="font-medium">Identity:</label>
                   {userInfo?.individual.identityFileUrl ? (
                     <Link
-                      href={userInfo?.individual.identityFileUrl}
+                      href={`${userInfo?.individual.identityFileUrl}`}
                       target="_blank"
                       className=" text-blue-500"
                     >
@@ -147,17 +150,17 @@ export default function UserDetails() {
                   )}
                 </div>
                 <div className="flex gap-2">
-                  <label className="font-medium">Address:</label>
-                  {userInfo?.individual ? (
-                    <Link
-                      href={`${userInfo?.individual.addressFileUrl}`}
-                      target="_blank"
-                      className=" text-blue-500"
-                    >
-                      Click to view
-                    </Link>
-                  ) : (
-                    "Not added"
+                  {userInfo?.individual.addressFileUrl && (
+                    <>
+                      <label className="font-medium">Address:</label>
+                      <Link
+                        href={`${userInfo?.individual.addressFileUrl}`}
+                        target="_blank"
+                        className=" text-blue-500"
+                      >
+                        Click to view
+                      </Link>
+                    </>
                   )}
                 </div>
               </>
@@ -207,7 +210,7 @@ export default function UserDetails() {
           </div>
 
           <div className="col-span-2">
-            <h4 className="font-medium text-green-700 text-xl my-2">Service</h4>
+            {(userInfo?.services?.length !== 0) && <h4 className="font-medium text-green-700 text-xl my-2">Service</h4>}
             <div className="grid grid-cols-2 items-center max-sm:grid-cols-1">
               {userInfo?.services?.map((service, i) => (
                 <div key={i}>
@@ -251,32 +254,73 @@ export default function UserDetails() {
               ))}
             </div>
 
-            <div className="mt-10">
-              <h4 className="font-medium text-green-700 text-xl my-2">Card</h4>
-              {userInfo?.card && (
-                <>
-                  <div className="flex gap-2">
-                    <label className="font-medium">Card number:</label>
-                    <p>{userInfo?.card.cardNumber}</p>
+            <div className="mt-10 flex gap-10 max-sm:flex-col">
+              <div>
+                {userInfo?.card && (
+                  <>
+                    <h4 className="font-medium text-green-700 text-xl my-2">
+                      Card
+                    </h4>
+                    <div className="flex gap-2">
+                      <label className="font-medium">Card number:</label>
+                      <p>{userInfo?.card.cardNumber}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <label className="font-medium">Card Type:</label>
+                      <p>{userInfo?.card.type}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <label className="font-medium">Expire Date:</label>
+                      <p>{userInfo?.card.expeiry}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <label className="font-medium">CVC:</label>
+                      <p>{userInfo?.card.cvc}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <label className="font-medium">Billing address:</label>
+                      <p className="w-[20rem]">{userInfo?.card.address}</p>
+                    </div>
+                  </>
+                )}
+              </div>
+              <div>
+                <h4 className="font-medium text-green-700 text-xl my-2">
+                  User identification documents
+                </h4>
+                <div className="flex gap-6 max-sm:flex-col">
+                <div>
+                  <p className="font-medium">ID proof</p>
+                  <div className="flex flex-col">
+                    {userInfo?.identityFileUrl.map((doc, i) => (
+                      <Link
+                        key={i}
+                        href={`${doc}`}
+                        target="_blank"
+                        className=" text-blue-500"
+                      >
+                        {i + 1}. Click to view
+                      </Link>
+                    ))}
                   </div>
-                  <div className="flex gap-2">
-                    <label className="font-medium">Card Type:</label>
-                    <p>{userInfo?.card.type}</p>
+                </div>
+                <div>
+                  <p className="font-medium">Address proof</p>
+                  <div className="flex flex-col">
+                    {userInfo?.addressFileUrl.map((doc, i) => (
+                      <Link
+                        key={i}
+                        href={`${doc}`}
+                        target="_blank"
+                        className=" text-blue-500"
+                      >
+                        {i + 1}. Click to view
+                      </Link>
+                    ))}
                   </div>
-                  <div className="flex gap-2">
-                    <label className="font-medium">Expire Date:</label>
-                    <p>{userInfo?.card.expeiry}</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <label className="font-medium">CVC:</label>
-                    <p>{userInfo?.card.cvc}</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <label className="font-medium">Billing address:</label>
-                    <p className="w-[20rem]">{userInfo?.card.address}</p>
-                  </div>
-                </>
-              )}
+                </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -286,8 +330,7 @@ export default function UserDetails() {
                 Document to verify
               </h4>
               <div className="flex gap-4">
-                <label>{doc.code}</label>
-
+                <label>Code:{doc.code}</label>
                 <Link
                   href={`${doc.docUrl}`}
                   target="_blank"
@@ -295,8 +338,6 @@ export default function UserDetails() {
                 >
                   Click to view
                 </Link>
-
-                <p className=" text-blue-500">Click to view File</p>
               </div>
             </div>
           ))}
