@@ -103,16 +103,11 @@ export default function Jobs() {
           </ul>
         </div>
       </section>
-      {/* <section className="container mx-auto lg:px-12 px-3 py-20">
+      <section className="container mx-auto lg:px-12 px-3 py-20">
         <h3 className="text-center text-sm">
-          You haven{"'"}t been hired for any jobs yet. <br />{" "}
-          <Link href={"#"} className="text-blue-500">
-            Find jobs
-          </Link>{" "}
-          and apply or <Link href={"#"}>follow up</Link> on jobs you have
-          already applied to.
+          You haven{"'"}t been hired for any jobs yet. <br />
         </h3>
-      </section> */}
+      </section>
     </>
   );
 }
