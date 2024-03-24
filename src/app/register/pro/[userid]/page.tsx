@@ -546,7 +546,7 @@ export default function Pro() {
             </label>
             <label className="space-y-1 flex-1">
               <h2 className="text-sm">
-                State <span className="text-red-500">*</span>
+              Province <span className="text-red-500">*</span>
               </h2>
               <input
                 type="text"

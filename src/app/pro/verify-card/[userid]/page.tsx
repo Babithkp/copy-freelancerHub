@@ -16,7 +16,7 @@ export default function VerifyCard() {
   const[isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const getUrl = usePathname();
-  const path = getUrl.split("/")[5];
+  const path = getUrl.split("/")[3];
 
 
 
@@ -131,7 +131,7 @@ export default function VerifyCard() {
                         <div>{toVerifyDoc}</div>
                       </div>
                     </div>
-                  ):"select document"}
+                  ):"Upload documents"}
             </div>
             <input
               type="file"

@@ -104,7 +104,7 @@ export default function AddServiceDedicatedResource() {
     try{
       const response = await addNewService(path,title,enterredDesc,rateHr,rateWeek,thumbnailUrl)
       if(response){
-        toast.success("New Service created successfully", {
+        toast.success("New service created successfully", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -143,7 +143,7 @@ export default function AddServiceDedicatedResource() {
           {/* service title */}
           <h2 className="flex items-center gap-2 text-lg">
             <IoSettingsOutline className="text-[#4FBFA3]" />
-            <span className="font-semibold">Service Title</span>
+            <span className="font-semibold">service Title</span>
           </h2>
           <div className="text-[14px] mt-2">
             <h3 className="text-gray-600">
@@ -185,7 +185,7 @@ export default function AddServiceDedicatedResource() {
           </h2>
           <div className="text-[14px] mt-2">
             <h3 className="text-gray-600">
-              Describe service in detail and help Employers understand your
+              Describe service in detail and help clients understand your
               capabilities.
             </h3>
             <div className="mt-3">

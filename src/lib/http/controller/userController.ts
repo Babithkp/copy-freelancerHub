@@ -246,7 +246,7 @@ export const getUserCardInfo = async (userId: string) => {
       .populate("card")
       .exec();
     if (user) {
-      const filter = JSON.stringify(user.card);
+      const filter = JSON.stringify(user);
       return filter;
     } else {
       return false;
@@ -263,7 +263,7 @@ export const addDocToVerify = async (userId: string, docInfo: object) => {
     const user = await UserRegistor.findOneAndUpdate(
       { user: userId },
       {
-        $push: { verifyDoc: docInfo },
+        $push:{verifyDoc:docInfo}
       }
     );
     if (user) {

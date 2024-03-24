@@ -13,9 +13,10 @@ interface card{
 }
 
 export default function TransferMethod() {
-  const [cvc, setCvc] = useState("");
+  // const [cvc, setCvc] = useState("");
   const [card, setcard] = useState<card>();
   const [expire, setExpire] = useState<number>();
+  const [isVerified, setIsVerified] = useState(false)
 
 
   const getUrl = usePathname();
@@ -27,10 +28,12 @@ export default function TransferMethod() {
         const response = await getUserCardInfo(path);
         if (response) {
           const filter = JSON.parse(response);
-          setCvc(filter.cvc);
-          setcard(filter);
-          setExpire(filter.expeiry)
-          
+          // setCvc(filter.card.cvc);
+          setcard(filter.card);
+          setExpire(filter.card.expeiry)
+          if(filter.verifyDoc.length > 0){
+            setIsVerified(true)
+          }
         }
       } catch (err) {
         console.log(err);
@@ -55,18 +58,18 @@ export default function TransferMethod() {
             height={0}
           />
         </div>
-        <div>**** {cvc || "000"}</div>
+        {/* <div>**** {cvc || "000"}</div> */}
         <div className="space-y-3">
           <div className="text-sm">
             <div>
-              {card?.type} ** {String(card?.cardNumber).slice(-4) || "0000"}
+              **** {String(card?.cardNumber).slice(-4) || "0000"}
             </div>
-            <Link
-              href={`/pro/payments/transfer-methods/verify-card/${path}`}
+            {!isVerified && <Link
+              href={`/pro/verify-card/${path}`}
               className="text-blue-500 underline"
             >
               verify card
-            </Link>
+            </Link>}
           </div>
           <div className="text-sm">
             <div>Expiration Date</div>

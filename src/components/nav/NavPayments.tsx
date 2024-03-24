@@ -8,7 +8,7 @@ export default function NavPayments() {
   return (
     <>
       <div className="container mx-auto lg:px-12 flex px-3">
-        <h1 className="text-xl font-semibold py-4">Payments</h1>
+        {/* <h1 className="text-xl font-semibold py-4">Payments</h1> */}
       </div>
       <div className="border-b py-2 text-sm">
         <div className="container mx-auto lg:px-12 space-x-1">
