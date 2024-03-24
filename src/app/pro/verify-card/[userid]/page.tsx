@@ -67,7 +67,7 @@ export default function VerifyCard() {
           try{
             const response = await addDocToVerify(path,docInfo)
             if(response){
-              toast.success("Document has been sent for verifications", {
+              toast.success("Document has been sent for verification", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,

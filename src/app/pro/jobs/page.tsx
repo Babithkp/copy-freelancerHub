@@ -11,7 +11,7 @@ export default function Jobs() {
 
   return (
     <>
-      <section className="container mx-auto lg:px-12 px-3 pt-5 text-sm flex flex-col md:flex-row">
+      <section className="container mx-auto lg:px-12 px-3 pt-5 text-sm flex flex-col md:flex-row mb-20">
         <div className="flex flex-col md:flex-row gap-2 md:items-center flex-1">
           <div className="flex items-center w-full ">
             <input
@@ -103,7 +103,7 @@ export default function Jobs() {
           </ul>
         </div>
       </section>
-      <section className="container mx-auto lg:px-12 px-3 py-20">
+      {/* <section className="container mx-auto lg:px-12 px-3 py-20">
         <h3 className="text-center text-sm">
           You haven{"'"}t been hired for any jobs yet. <br />{" "}
           <Link href={"#"} className="text-blue-500">
@@ -112,7 +112,7 @@ export default function Jobs() {
           and apply or <Link href={"#"}>follow up</Link> on jobs you have
           already applied to.
         </h3>
-      </section>
+      </section> */}
     </>
   );
 }

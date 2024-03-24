@@ -390,7 +390,7 @@ export default function Pro() {
     try {
       const response = await addUserIdentity(userInfo);
       if (response) {
-        toast.success("Identity saved successfully", {
+        toast.success("Address saved successfully", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -425,7 +425,7 @@ export default function Pro() {
       <div className="border rounded flex-1 flex-col w-full">
         <div className="py-2 border-b text-xs bg-[#FAFAFA] px-4">
           <h1 className="text-base font-semibold">
-            Enter your Public Identity
+            Enter your public identity
           </h1>
         </div>
         <div className="py-5 flex-1">
@@ -479,7 +479,7 @@ export default function Pro() {
       <div className="border rounded flex-1 flex-col w-full pb-5">
         <div className="py-2 border-b text-xs bg-[#FAFAFA] px-6">
           <h1 className="text-base font-semibold">
-            Enter Your Contact Information
+            Enter your contact information
           </h1>
         </div>
         <div className="py-5 flex-1 space-y-3 px-5">
@@ -518,7 +518,7 @@ export default function Pro() {
             <input
               type="text"
               className="w-full border rounded-md px-3 py-1.5 focus:outline-none focus:border-[#4FBFA3]"
-              {...register("street", { required: true, minLength: 5 })}
+              {...register("street", { required: true})}
             />
             {errors.street && (
               <p className="text-sm text-red-500">
@@ -534,7 +534,7 @@ export default function Pro() {
               <input
                 type="text"
                 className="w-full border rounded-md px-3 py-1.5 focus:outline-none focus:border-[#4FBFA3]"
-                {...register("city", { required: true, minLength: 5 })}
+                {...register("city", { required: true })}
               />
               {errors.city && (
                 <p className="text-sm text-red-500">
@@ -549,7 +549,7 @@ export default function Pro() {
               <input
                 type="text"
                 className="w-full border rounded-md px-3 py-1.5 focus:outline-none focus:border-[#4FBFA3]"
-                {...register("state", { required: true, minLength: 5 })}
+                {...register("state", { required: true})}
               />
               {errors.state && (
                 <p className="text-sm text-red-500">

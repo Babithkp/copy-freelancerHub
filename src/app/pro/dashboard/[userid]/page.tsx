@@ -57,9 +57,6 @@ export default function Dashboard() {
               $0 <span className="text-gray-400">earned/yr</span> ·{" "}
               <span className="text-[#2777C6] font-[300]">No Feedback</span>
             </div>
-            <p className="text-xs text-[#2777C6] hover:underline cursor-pointer text-nowrap">
-              All-Time Transaction Data
-            </p>
           </div>
           <div className="py-5 border-b text-xs space-y-3">
             <div className="flex items-center justify-between px-4">
@@ -76,9 +73,9 @@ export default function Dashboard() {
                 <MdCardMembership className="scale-150" />
                 <span>Basic Member</span>
               </div>
-              <Link href={"#"} className="text-[#2777C6] hover:underline">
+              {/* <Link href={"#"} className="text-[#2777C6] hover:underline">
                 Upgrade
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="py-5 border-b text-xs space-y-3">
@@ -120,9 +117,9 @@ export default function Dashboard() {
           <div className="py-2 border-b text-xs bg-[#FAFAFA]">
             <div className="flex items-center justify-between px-4">
               <div className="text-base font-[400]">Find Work</div>
-              <Link href={"#"} className="text-[#2777C6] hover:underline">
+              {/* <Link href={"#"} className="text-[#2777C6] hover:underline">
                 10 Bids
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="py-5 border-b text-xs">
@@ -134,7 +131,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="py-5 border-b text-xs">
+          {/* <div className="py-5 border-b text-xs">
             <div className="px-4 space-y-2.5">
               <div className="text-base font-[400] text-gray-600">Leads</div>
               <div>
@@ -162,7 +159,7 @@ export default function Dashboard() {
                 </Link>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="py-5 text-xs">
             <div className="px-4 space-y-2.5">
               <div className="text-base font-[400] text-gray-600">

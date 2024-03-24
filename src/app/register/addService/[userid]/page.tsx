@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import React, { useState } from "react";
 import { BiDollar } from "react-icons/bi";
@@ -30,19 +29,18 @@ export default function AddServiceDedicatedResource() {
   const [thumbnailFile, setThumbnailFile] = useState<any>(null);
   const [editorValue, setEditorValue] = useState<any>("");
   // const [selectCategory, setSelectCategory] = useState<string | null>(null);
-  const [title,setTitle] = useState('')
-  const [rateHr,setRateHr] = useState('')
-  const [rateWeek,setRateweek] = useState('')
+  const [title, setTitle] = useState("");
+  const [rateHr, setRateHr] = useState("");
+  const [rateWeek, setRateweek] = useState("");
   const [allchecked, setAllChecked] = useState<string[]>([]);
-  const [enterredDesc,setEnteredDesc] = useState('')
-  const [errorTitle,setErrorTitle] = useState<boolean | string>(false)
-  const [errorDesc,setErrorDesc] = useState<boolean | string>(false)
-  const [isSubmitting,setIsSubmitting] = useState(false)
- 
+  const [enterredDesc, setEnteredDesc] = useState("");
+  const [errorTitle, setErrorTitle] = useState<boolean | string>(false);
+  const [errorDesc, setErrorDesc] = useState<boolean | string>(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const router = useRouter();
   const getUrl = usePathname();
   const path = getUrl.split("/")[3];
-  
 
   async function serviceThumbnailToStorage(file: any) {
     const storageRef = ref(storage, `serviceThumbnail/${file.name + v4()}`);
@@ -56,14 +54,13 @@ export default function AddServiceDedicatedResource() {
     }
   }
 
-   function handleChange(e:any) {
-      if (e.target.checked) {
-         setAllChecked([...allchecked, e.target.value]);
-      } else {
-         setAllChecked(allchecked.filter((item) => item !== e.target.value));
-      }
-   }
-
+  function handleChange(e: any) {
+    if (e.target.checked) {
+      setAllChecked([...allchecked, e.target.value]);
+    } else {
+      setAllChecked(allchecked.filter((item) => item !== e.target.value));
+    }
+  }
 
   const handleImageChange = (event: any) => {
     const file = event.target.files[0];
@@ -73,37 +70,43 @@ export default function AddServiceDedicatedResource() {
         setThumbnail(reader.result);
       };
       reader.readAsDataURL(file);
-      setThumbnailFile(file)
+      setThumbnailFile(file);
     }
   };
 
-  function getDescrption(desc:string){
+  function getDescrption(desc: string) {
     setEnteredDesc(desc);
-    
   }
-  
-  const submitHander = async(event: any) =>{
-    let thumbnailUrl 
+
+  const submitHander = async (event: any) => {
+    let thumbnailUrl;
     event.preventDefault();
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
-    if(!title){
+    if (!title) {
       setErrorTitle("Please enter a Title");
-      setIsSubmitting(false)
-      return
+      setIsSubmitting(false);
+      return;
     }
-    if(!enterredDesc){
+    if (!enterredDesc) {
       setErrorDesc("Please enter some Description");
-      setIsSubmitting(false)
-      return
+      setIsSubmitting(false);
+      return;
     }
-    if(thumbnailFile){
-      thumbnailUrl = await serviceThumbnailToStorage(thumbnailFile)
+    if (thumbnailFile) {
+      thumbnailUrl = await serviceThumbnailToStorage(thumbnailFile);
     }
 
-    try{
-      const response = await addNewService(path,title,enterredDesc,rateHr,rateWeek,thumbnailUrl)
-      if(response){
+    try {
+      const response = await addNewService(
+        path,
+        title,
+        enterredDesc,
+        rateHr,
+        rateWeek,
+        thumbnailUrl
+      );
+      if (response) {
         toast.success("New service created successfully", {
           position: "top-right",
           autoClose: 5000,
@@ -114,11 +117,11 @@ export default function AddServiceDedicatedResource() {
           progress: undefined,
           theme: "light",
         });
-        setIsSubmitting(false)
-        router.push(`/register/addPayment/${path}`)
+        setIsSubmitting(false);
+        router.push(`/register/addPayment/${path}`);
       }
-    }catch(error){
-      setIsSubmitting(false)
+    } catch (error) {
+      setIsSubmitting(false);
       toast.error("Failed to add service,try again", {
         position: "top-right",
         autoClose: 5000,
@@ -130,11 +133,13 @@ export default function AddServiceDedicatedResource() {
         theme: "light",
       });
     }
-  }
-
+  };
 
   return (
-    <form className="container mx-auto py-10 px-3 md:px-20 lg:px-60" onSubmit={submitHander}>
+    <form
+      className="container mx-auto py-10 px-3 md:px-20 lg:px-60"
+      onSubmit={submitHander}
+    >
       <div className="border rounded flex-col">
         <div className="py-2 border-b bg-[#FAFAFA] rounded-t px-4">
           <h1 className="text-xl font-[400]">Add a service</h1>
@@ -153,7 +158,7 @@ export default function AddServiceDedicatedResource() {
               type="text"
               className="w-full px-3 py-2 rounded border focus:outline-none focus:border-[#4FBFA3] mt-2"
               placeholder="E.g. Android App Development"
-              onChange={(e)=>setTitle(e.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
             />
             {errorTitle && <p className="text-red-400">{errorTitle}</p>}
           </div>
@@ -189,8 +194,11 @@ export default function AddServiceDedicatedResource() {
               capabilities.
             </h3>
             <div className="mt-3">
-              <CustomEditor initialData={editorValue} getValue={getDescrption}/>
-              {errorDesc&&<p className="text-red-400">{errorDesc}</p>}
+              <CustomEditor
+                initialData={editorValue}
+                getValue={getDescrption}
+              />
+              {errorDesc && <p className="text-red-400">{errorDesc}</p>}
             </div>
           </div>
           <div className="border-b" />
@@ -333,8 +341,8 @@ export default function AddServiceDedicatedResource() {
             <span className="font-semibold">Service Cost</span>
           </h2>
           <h3 className="text-gray-600 text-sm">
-          Enter the minimum amount that you charge for your services.
-            </h3>
+            Enter the minimum amount that you charge for your services.
+          </h3>
           <div className="text-[14px] mt-2 flex lg:gap-28 md:gap-16 gap-7 mb-5">
             <label htmlFor="">
               <div className="font-[500] text-gray-700 text-xs">Rate/Hour</div>
@@ -342,7 +350,7 @@ export default function AddServiceDedicatedResource() {
                 <input
                   type="number"
                   className="border focus:outline-none rounded focus:border-[#4FBFA3] pl-4 pr-2 py-2 w-24 md:w-36"
-                  onChange={(e)=>setRateHr(e.target.value)}
+                  onChange={(e) => setRateHr(e.target.value)}
                 />
                 <div className="text-gray-400 absolute top-[17px] left-1">
                   <BiDollar />
@@ -357,7 +365,7 @@ export default function AddServiceDedicatedResource() {
                 <input
                   type="number"
                   className="border focus:outline-none rounded focus:border-[#4FBFA3] pl-4 pr-2 py-2 w-24 md:w-36"
-                  onChange={(e)=>setRateweek(e.target.value)}
+                  onChange={(e) => setRateweek(e.target.value)}
                 />
                 <div className="text-gray-400 absolute top-[17px] left-1">
                   <BiDollar />
@@ -383,7 +391,7 @@ export default function AddServiceDedicatedResource() {
               >
                 <IoMdImages className="scale-150" />
               </div>
-              {thumbnail && (
+              {/* {thumbnail && (
                 <Image
                   src={thumbnail}
                   alt="image"
@@ -391,7 +399,17 @@ export default function AddServiceDedicatedResource() {
                   height={80}
                   className="border"
                 />
-              )}
+              )} */}
+              {thumbnail && <div className="w-[15rem] h-[10rem]">
+                <Image
+                  src={thumbnail}
+                  alt="default image"
+                  width={200}
+                  height={200}
+                  loading="lazy"
+                  className="border h-full w-full rounded-lg object-cover drop-shadow-lg p-2"
+                />
+              </div>}
               <input
                 type="file"
                 accept="image/*"
@@ -408,14 +426,14 @@ export default function AddServiceDedicatedResource() {
       </div>
       <div className="mt-10 space-x-4 mb-10 sm:">
         <Button disabled={isSubmitting ? true : false}>
-        {isSubmitting ? (
-                    <div className="animate-spin">
-                      <VscLoading size={25} />
-                    </div>
-                  ) : (
-                    "Save"
-                  )}
-          </Button>
+          {isSubmitting ? (
+            <div className="animate-spin">
+              <VscLoading size={25} />
+            </div>
+          ) : (
+            "Save"
+          )}
+        </Button>
       </div>
     </form>
   );

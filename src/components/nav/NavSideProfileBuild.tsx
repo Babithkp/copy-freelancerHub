@@ -20,9 +20,6 @@ export default function NavSideProfileBuild() {
         />
         <h2 className="font-semibold text-base">User Name</h2>
         <div className="text-center">
-          <p className="text-[13px] text-[#2777C6] hover:underline cursor-pointer text-nowrap">
-            View Profile
-          </p>
         </div>
       </div>
       <div className="mt-3 text-sm text-gray-500 space-y-2">
