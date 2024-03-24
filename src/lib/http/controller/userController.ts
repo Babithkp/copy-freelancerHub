@@ -38,8 +38,8 @@ export const addNewUser = async (
     }
     const newUser = new User({
       fullName: name,
-      email: email,
-      password: password,
+      email: email.toLowerCase(),
+      password: password.toLowerCase(),
     });
     const result = await newUser.save();
     if (result) {
@@ -58,9 +58,9 @@ export const userLogin = async (email: string, password: string) => {
     if (email === "admin@gmail.com" && password === "admin") {
       return "admin";
     }
-    const userInfo = await User.findOne({ email: email });
+    const userInfo = await User.findOne({ email: email.toLowerCase() });
     if (userInfo) {
-      if (userInfo.password === password) {
+      if (userInfo.password === password.toLowerCase()) {
         const token = jwt.sign({ userId: userInfo._id }, "secret", {
           expiresIn: "2h",
         });
@@ -125,7 +125,7 @@ export const updateRegiterProfile = async (
   try {
     await connectDB();
     mongoose.model("UserRegistor", UserRegistor.schema);
-    const user = await User.findByIdAndUpdate(id, { token: "60" });
+    const user = await User.findByIdAndUpdate(id, { token: "100" });
     if (individual) {
       const userInfo = await UserRegistor.findOneAndUpdate(
         { user: id },

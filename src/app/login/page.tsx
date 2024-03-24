@@ -56,6 +56,8 @@ export default function Login() {
             router.replace(`/register/addService/${userid}`)
           }else if(progress ==="80"){
             router.replace(`/register/addPayment/${userid}`)
+          }else if(progress === "100"){
+            router.replace(`/pro/dashboard/${userid}`)
           }
         }
       }else{

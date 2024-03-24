@@ -518,7 +518,6 @@ export default function Pro() {
             <input
               type="text"
               className="w-full border rounded-md px-3 py-1.5 focus:outline-none focus:border-[#4FBFA3]"
-              placeholder="Street"
               {...register("street", { required: true, minLength: 5 })}
             />
             {errors.street && (
@@ -535,7 +534,6 @@ export default function Pro() {
               <input
                 type="text"
                 className="w-full border rounded-md px-3 py-1.5 focus:outline-none focus:border-[#4FBFA3]"
-                placeholder="City"
                 {...register("city", { required: true, minLength: 5 })}
               />
               {errors.city && (
@@ -551,7 +549,6 @@ export default function Pro() {
               <input
                 type="text"
                 className="w-full border rounded-md px-3 py-1.5 focus:outline-none focus:border-[#4FBFA3]"
-                placeholder="State"
                 {...register("state", { required: true, minLength: 5 })}
               />
               {errors.state && (
@@ -567,7 +564,6 @@ export default function Pro() {
               <input
                 type="text"
                 className="w-full border rounded-md px-3 py-1.5 focus:outline-none focus:border-[#4FBFA3]"
-                placeholder="Postal Code"
                 {...register("postalCode", { required: true })}
               />
               {errors.postalCode && (
@@ -585,7 +581,6 @@ export default function Pro() {
             <input
               type="text"
               className="w-full border rounded-md px-3 py-1.5 focus:outline-none focus:border-[#4FBFA3]"
-              placeholder="Suburb/ district/ neighborhood"
               {...register("neigborhood", { required: true, minLength: 5 })}
             />
             {errors.neigborhood && (

@@ -1,10 +1,23 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function NavPayments() {
+  const [path, setPath] = useState("");
   const pathName = usePathname();
+  useEffect(() => {
+    async function fetch() {
+      if (typeof localStorage !== "undefined") {
+        const value = localStorage.getItem("userId");
+        if (value) {
+          const filter = JSON.parse(value);
+          setPath(filter);
+        }
+      }
+    }
+    fetch();
+  }, []);
   return (
     <>
       <div className="container mx-auto lg:px-12 flex px-3">
@@ -23,9 +36,9 @@ export default function NavPayments() {
             Invoices
           </Link> */}
           <Link
-            href={"/pro/payments/transfer-methods"}
+            href={`/pro/payments/transfer-methods/${path}`}
             className={`px-3 py-2  ${
-              pathName == "/pro/payments/transfer-methods"
+              pathName == `/pro/payments/transfer-methods/${path}`
                 ? "border-b-2 border-blue-400 font-semibold"
                 : ""
             }`}
