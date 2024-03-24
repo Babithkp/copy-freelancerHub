@@ -1,4 +1,5 @@
-"use server";import bcrypt from "bcrypt";
+"use server";
+import bcrypt from "bcrypt";
 import { connectDB } from "../connectDB";
 import User, { user } from "../model/user";
 import mongoose from "mongoose";
@@ -120,12 +121,11 @@ export const updateRegiterProfile = async (
   company: object | boolean,
   profileUrl: string,
   identityFileUrl: any,
-  addressFileUrl: any,
+  addressFileUrl: any
 ) => {
   try {
     await connectDB();
-    mongoose.model("UserRegistor", UserRegistor.schema);
-    const user = await User.findByIdAndUpdate(id, { token: "100" });
+    const user = await User.findByIdAndUpdate(id, { token: "0" });
     if (individual) {
       const userInfo = await UserRegistor.findOneAndUpdate(
         { user: id },
@@ -133,7 +133,7 @@ export const updateRegiterProfile = async (
           profileUrl: profileUrl,
           individual: individual,
           identityFileUrl,
-          addressFileUrl
+          addressFileUrl,
         }
       );
       if (userInfo) {
@@ -263,7 +263,7 @@ export const addDocToVerify = async (userId: string, docInfo: object) => {
     const user = await UserRegistor.findOneAndUpdate(
       { user: userId },
       {
-        $push:{verifyDoc:docInfo}
+        $push: { verifyDoc: docInfo },
       }
     );
     if (user) {

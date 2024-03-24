@@ -76,6 +76,20 @@ export default function CompleteYourProfile() {
     setUploadDocument2(prev => prev.filter(file => file !== fileName));
   };
 
+
+
+  async function changeProfileImageToStorage(file: any) {
+    const storageRef = ref(storage, `userProfileImages/${file.name + v4()}`);
+    const response = await uploadBytes(storageRef, file);
+    const snapshot = response.ref;
+    const getProfileURL = await getDownloadURL(snapshot);
+    if (getProfileURL) {
+      if (response) {
+        return getProfileURL;
+      }
+    }
+  }
+
   const handleImageChange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
@@ -99,28 +113,19 @@ export default function CompleteYourProfile() {
   //   }
   // };
 
-  async function changeProfileImageToStorage(file: any) {
-    const storageRef = ref(storage, `userProfileImages/${file.name + v4()}`);
-    const response = await uploadBytes(storageRef, file);
-    const snapshot = response.ref;
-    const getProfileURL = await getDownloadURL(snapshot);
-    if (getProfileURL) {
-      if (response) {
-        return getProfileURL;
-      }
-    }
-  }
-  async function teamImageToStorage(file: any) {
-    const storageRef = ref(storage, `teamsImages/${file.name + v4()}`);
-    const response = await uploadBytes(storageRef, file);
-    const snapshot = response.ref;
-    const getProfileURL = await getDownloadURL(snapshot);
-    if (getProfileURL) {
-      if (response) {
-        return getProfileURL;
-      }
-    }
-  }
+
+
+  // async function teamImageToStorage(file: any) {
+  //   const storageRef = ref(storage, `teamsImages/${file.name + v4()}`);
+  //   const response = await uploadBytes(storageRef, file);
+  //   const snapshot = response.ref;
+  //   const getProfileURL = await getDownloadURL(snapshot);
+  //   if (getProfileURL) {
+  //     if (response) {
+  //       return getProfileURL;
+  //     }
+  //   }
+  // }
 
   async function identityFileToStorage(file: any) {
     const storageRef = ref(storage, `userIdentityFile/${file.name + v4()}`);
@@ -184,7 +189,7 @@ export default function CompleteYourProfile() {
     }
     // addressFile
     if (uploadDocument2) {
-      const IdProofPromises = uploadDocument2File.map(file => identityFileToStorage(file));
+      const IdProofPromises = uploadDocument2File.map(file => addressFileToStorage(file));
       const IdProof = await Promise.all(IdProofPromises);
       if (IdProof) {
         addressFileUrl = IdProof;
@@ -205,7 +210,7 @@ export default function CompleteYourProfile() {
         const response = await updateRegiterProfile(
           path,
           Individual,
-          false,
+          true,
           selectedImage,
           identityFileUrl,
           addressFileUrl
