@@ -64,9 +64,9 @@ export default function Dashboard() {
                 <MdOutlineVerified className="scale-150" />
                 <span>Not Verified Yet</span>
               </div>
-              <Link href={"#"} className="text-[#2777C6] hover:underline">
+              {/* <Link href={"#"} className="text-[#2777C6] hover:underline">
                 Verify
-              </Link>
+              </Link> */}
             </div>
             <div className="flex items-center justify-between px-4">
               <div className="flex items-center gap-2">
