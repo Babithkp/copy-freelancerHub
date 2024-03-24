@@ -10,7 +10,7 @@ export default function SectionHero() {
     <div className="bg-cover bg-[#094063]">
       <section className="flex container mx-auto text-white">
         <div className="flex-1 space-y-7 py-20 md:py-20 lg:py-32 px-3 md:px-12">
-          <h1 className="text-5xl font-bold">Hire Expert Freelance & Services.</h1>
+          <h1 className="text-5xl font-bold">Hire Expert Freelancers & Services.</h1>
           <h3 className="font-semibold text-lg">
             Work with the best freelance talent from around the world on our
             secure, flexible and cost-effective platform.

@@ -10,7 +10,7 @@ export interface userRegistor extends mongoose.Document {
   street: string;
   city: string;
   state: string;
-  postalCode: number;
+  postalCode: String;
   neigborhood: string;
   user: user;
   individual: object;
@@ -47,7 +47,7 @@ export const UserRegistorSchema = new mongoose.Schema<userRegistor>({
     required: true,
   },
   postalCode: {
-    type: Number,
+    type: String,
     required: true,
   },
   state: {

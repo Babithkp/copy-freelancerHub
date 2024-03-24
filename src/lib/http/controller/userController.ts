@@ -15,7 +15,7 @@ type userRegistor = {
   street: string;
   city: string;
   state: string;
-  postalCode: number;
+  postalCode: String;
   neigborhood: string;
   user: string;
 };

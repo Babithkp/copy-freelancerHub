@@ -13,7 +13,7 @@ interface user {
   street: string;
   city: string;
   state: string;
-  postalCode: number;
+  postalCode: string;
   neigborhood: string;
   individual: {
     addressFileUrl: string;
@@ -63,6 +63,8 @@ export default function UserDetails() {
         if (response) {
           const filter = JSON.parse(response);
           setUserInfo(filter);
+          console.log(filter);
+          
         }
       } catch (e) {
         console.log(e);
@@ -110,7 +112,7 @@ export default function UserDetails() {
             </div>
             <div className="flex gap-2">
               <label className="font-medium">Postal Code:</label>
-              <p>{userInfo?.postalCode || "Code"}</p>
+              <p>{userInfo?.postalCode|| "Code"}</p>
             </div>
             <div className="flex gap-2">
               <label className="font-medium">Neighborhood:</label>
