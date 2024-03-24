@@ -150,7 +150,7 @@ export default function UserDetails() {
                   <label className="font-medium">Address:</label>
                   {userInfo?.individual ? (
                     <Link
-                      href={userInfo?.individual.addressFileUrl}
+                      href={`${userInfo?.individual.addressFileUrl}`}
                       target="_blank"
                       className=" text-blue-500"
                     >
@@ -289,7 +289,7 @@ export default function UserDetails() {
                 <label>{doc.code}</label>
 
                 <Link
-                  href={doc.docUrl}
+                  href={`${doc.docUrl}`}
                   target="_blank"
                   className=" text-blue-500"
                 >

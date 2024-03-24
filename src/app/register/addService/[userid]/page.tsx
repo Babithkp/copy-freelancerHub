@@ -137,13 +137,13 @@ export default function AddServiceDedicatedResource() {
     <form className="container mx-auto py-10 px-3 md:px-20 lg:px-60" onSubmit={submitHander}>
       <div className="border rounded flex-col">
         <div className="py-2 border-b bg-[#FAFAFA] rounded-t px-4">
-          <h1 className="text-xl font-[400]">Add a Service</h1>
+          <h1 className="text-xl font-[400]">Add a service</h1>
         </div>
         <div className="px-4 mt-5">
           {/* service title */}
           <h2 className="flex items-center gap-2 text-lg">
             <IoSettingsOutline className="text-[#4FBFA3]" />
-            <span className="font-semibold">service Title</span>
+            <span className="font-semibold">Service Title</span>
           </h2>
           <div className="text-[14px] mt-2">
             <h3 className="text-gray-600">
