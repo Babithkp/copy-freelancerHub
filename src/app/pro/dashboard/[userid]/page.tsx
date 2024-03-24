@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { getUserRegisterInfo } from "@/lib/http/controller/userController";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,27 +8,26 @@ import { FaUserPen } from "react-icons/fa6";
 import { MdAddBox, MdCardMembership, MdOutlineVerified } from "react-icons/md";
 
 export default function Dashboard() {
-  const [userProfileImage,setUserProfileImage] = useState("")
-  const [userName,setUserName] = useState("")
+  const [userProfileImage, setUserProfileImage] = useState("");
+  const [userName, setUserName] = useState("");
   const getUrl = usePathname();
   const path = getUrl.split("/")[3];
-  
-  useEffect(()=>{
-    async function fetch(){
-      try{
-        const response = await getUserRegisterInfo(path)
-        if(response){
-          const filter = JSON.parse(response)
-          setUserProfileImage(filter.profileUrl)
-          setUserName(filter.ScreenName)
+
+  useEffect(() => {
+    async function fetch() {
+      try {
+        const response = await getUserRegisterInfo(path);
+        if (response) {
+          const filter = JSON.parse(response);
+          setUserProfileImage(filter.profileUrl);
+          setUserName(filter.ScreenName);
         }
-      }catch(err){
+      } catch (err) {
         console.log(err);
-        
       }
     }
-    fetch()
-  },[])
+    fetch();
+  }, []);
   return (
     <div className="">
       <div className="border-b">
@@ -40,7 +39,7 @@ export default function Dashboard() {
         {/* profile */}
         <div className="bg-[#FAFAFA] border rounded flex-1">
           <div className="py-5 border-b flex flex-col justify-center items-center gap-2">
-          <div className="w-[7rem] h-[7rem]">
+            <div className="w-[7rem] h-[7rem]">
               <Image
                 src={userProfileImage || "https://placehold.co/400x400/png "}
                 alt="default image"
@@ -82,7 +81,10 @@ export default function Dashboard() {
             <div className="px-4">
               <div className="flex items-center gap-2">
                 <FaUserPen className="scale-150" />
-                <Link href={"/pro/profileBuild/editAboutInfo"} className="text-[#2777C6] hover:underline">
+                <Link
+                  href={"/pro/profileBuild/editAboutInfo"}
+                  className="text-[#2777C6] hover:underline"
+                >
                   Edit Profile
                 </Link>
               </div>
@@ -90,7 +92,10 @@ export default function Dashboard() {
             <div className="px-4">
               <div className="flex items-center gap-2">
                 <MdAddBox className="scale-150 -ml-0.5" />
-                <Link href={"/pro/profileBuild/addServiceorDedicatedResource"} className="ml-0.5 text-[#2777C6] hover:underline">
+                <Link
+                  href={"/pro/profileBuild/addServiceorDedicatedResource"}
+                  className="ml-0.5 text-[#2777C6] hover:underline"
+                >
                   Add a Service
                 </Link>
               </div>
@@ -169,22 +174,6 @@ export default function Dashboard() {
                 Tell us about your services and showcase your work. We will
                 identify potential job matches and help you connect with
                 Employers.
-              </div>
-              <div>
-                <Link
-                  href={"#"}
-                  className="text-[#2777C6] hover:underline font-[600] "
-                >
-                  + Add Services
-                </Link>
-              </div>
-              <div>
-                <Link
-                  href={"#"}
-                  className="text-[#2777C6] hover:underline font-[600] "
-                >
-                  + Add Portfolio
-                </Link>
               </div>
             </div>
           </div>
