@@ -72,7 +72,18 @@ export default function Login() {
         setIsSubmitting(false);
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Network error or wrong email and password, try again", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setIsSubmitting(false);
+    
     }
   };
 

@@ -1,4 +1,5 @@
-import axios from "axios";type userRegistor = {
+import axios from "axios";
+type userRegistor = {
   profileUrl: string;
   ScreenName: string;
   address: string;
@@ -16,11 +17,14 @@ export const addNewUser = async (
   email: string,
   password: string
 ) => {
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/add-user`, {
-    fullName,
-    email,
-    password,
-  });
+  const response = await axios.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-user`,
+    {
+      fullName,
+      email,
+      password,
+    }
+  );
   if (response.data.message) {
     return true;
   } else {
@@ -29,24 +33,30 @@ export const addNewUser = async (
 };
 
 export const userLogin = async (email: string, password: string) => {
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user-login`, {
-    email,
-    password,
-  });
-  
+  const response = await axios.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/user-login`,
+    {
+      email,
+      password,
+    }
+  );
+
   if (response.data.message === "admin") {
     return "admin";
   } else if (response.data.message === false) {
     return false;
-  } else if (response.data){
+  } else if (response.data) {
     return response.data;
   }
 };
 
 export const addUserIdentity = async (userRegistor: userRegistor) => {
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/add-userDetails`, {
-    userRegistor,
-  });
+  const response = await axios.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-userDetails`,
+    {
+      userRegistor,
+    }
+  );
 
   if (response.data.message) {
     return true;
@@ -57,7 +67,7 @@ export const addUserIdentity = async (userRegistor: userRegistor) => {
 
 export const getUserIdentity = async (id: string) => {
   const response = await axios.post(
-    "http://localhost:5000/add-getUserIdentity",
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-getUserIdentity`,
     {
       id,
     }
@@ -78,14 +88,17 @@ export const updateRegiterProfile = async (
   identityFileUrl: any,
   addressFileUrl: any
 ) => {
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/createProfile`, {
-    id,
-    individual,
-    company,
-    profileUrl,
-    identityFileUrl,
-    addressFileUrl,
-  });
+  const response = await axios.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/createProfile`,
+    {
+      id,
+      individual,
+      company,
+      profileUrl,
+      identityFileUrl,
+      addressFileUrl,
+    }
+  );
 
   if (response.data.message) {
     return true;
@@ -102,14 +115,17 @@ export const addNewService = async (
   rateWeek: string,
   thumbnailUrl: string | undefined
 ) => {
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/addNewService`, {
-    userId,
-    Title,
-    description,
-    rateHr,
-    rateWeek,
-    thumbnailUrl,
-  });
+  const response = await axios.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/addNewService`,
+    {
+      userId,
+      Title,
+      description,
+      rateHr,
+      rateWeek,
+      thumbnailUrl,
+    }
+  );
 
   if (response.data) {
     return true;
@@ -119,10 +135,13 @@ export const addNewService = async (
 };
 
 export const addcard = async (userId: string, cardInfo: object) => {
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/addcard`, {
-    userId,
-    cardInfo,
-  });
+  const response = await axios.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/addcard`,
+    {
+      userId,
+      cardInfo,
+    }
+  );
 
   if (response.data) {
     return true;
@@ -132,9 +151,12 @@ export const addcard = async (userId: string, cardInfo: object) => {
 };
 
 export const getUserRegisterInfo = async (userId: string) => {
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/userRegisterInfo`, {
-    userId,
-  });
+  const response = await axios.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/userRegisterInfo`,
+    {
+      userId,
+    }
+  );
   if (response.data) {
     return response.data;
   } else if (response.data === false) {
@@ -143,9 +165,12 @@ export const getUserRegisterInfo = async (userId: string) => {
 };
 
 export const getUserCardInfo = async (userId: string) => {
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/userCardInfo`, {
-    userId,
-  });
+  const response = await axios.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/userCardInfo`,
+    {
+      userId,
+    }
+  );
 
   if (response.data) {
     return response.data;
@@ -155,10 +180,13 @@ export const getUserCardInfo = async (userId: string) => {
 };
 
 export const addDocToVerify = async (userId: string, docInfo: object) => {
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/docToVerify`, {
-    userId,
-    docInfo,
-  });
+  const response = await axios.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/docToVerify`,
+    {
+      userId,
+      docInfo,
+    }
+  );
   if (response.data) {
     return response.data;
   } else if (response.data === false) {
@@ -167,7 +195,9 @@ export const addDocToVerify = async (userId: string, docInfo: object) => {
 };
 
 export const getAllUserData = async () => {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/getAllUserData`);
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/getAllUserData`
+  );
 
   if (response.data) {
     return response.data;
@@ -189,14 +219,16 @@ export const getAllUserDetailedData = async () => {
 };
 
 export const getUserAllInfo = async (userId: string) => {
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/userAllInfo`, {
-    userId,
-  });
-  
-  
+  const response = await axios.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/userAllInfo`,
+    {
+      userId,
+    }
+  );
+
   if (response.data) {
     return response.data;
   } else if (response.data === false) {
-    return false
+    return false;
   }
 };
