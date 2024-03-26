@@ -11,9 +11,10 @@ import { usePathname } from "next/navigation";
 import { IoCloseSharp, IoSearch } from "react-icons/io5";
 import { IoChatboxSharp } from "react-icons/io5";
 import { IoNotifications } from "react-icons/io5";
-import { getUserRegisterInfo } from "@/lib/http/controller/userController";
+import { getUserRegisterInfo } from "@/lib/api/fetch";
 
 export default function Navbar() {
+  const [userId,setUserId] = useState("")
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
   const [profileUrl,setProfileUrl] = useState<any>();
   const pathName = usePathname();
@@ -22,13 +23,14 @@ export default function Navbar() {
     async function fetch(){
       if (typeof localStorage !== "undefined") {
         const value = localStorage.getItem("userId");
-        if (value) {
-          const filter = JSON.parse(value);
+        if(value && value !== userId){
+          setUserId(value)
+        }
+        if (userId) {
           try{
-            const response = await getUserRegisterInfo(filter)
+            const response = await getUserRegisterInfo(userId)
             if(response){
-              const filter = JSON.parse(response)
-              setProfileUrl(filter.profileUrl)
+              setProfileUrl(response.profileUrl)
             }
           }catch(e){
             console.log(e);
@@ -37,7 +39,7 @@ export default function Navbar() {
         }}
       }
       fetch()
-      },[])
+      },[userId])
 
   function logoutHandler(){
     if (typeof localStorage !== "undefined"){

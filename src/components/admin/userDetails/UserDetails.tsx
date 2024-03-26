@@ -1,5 +1,5 @@
 "use client";
-import { getUserAllInfo } from "@/lib/http/controller/userController";
+import { getUserAllInfo } from "@/lib/api/fetch";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -51,7 +51,7 @@ interface user {
 }
 [];
 
-export default function UserDetails() {
+export default function UserDetails({params}:any) {
   const [userInfo, setUserInfo] = useState<user>();
   const getUrl = usePathname();
   const path = getUrl.split("/")[2];
@@ -59,12 +59,9 @@ export default function UserDetails() {
   useEffect(() => {
     async function fetch() {
       try {
-        const response = await getUserAllInfo(path);
+        const response = await getUserAllInfo(params);
         if (response) {
-          const filter = JSON.parse(response);
-          setUserInfo(filter);
-          console.log(filter);
-          
+          setUserInfo(response);
         }
       } catch (e) {
         console.log(e);

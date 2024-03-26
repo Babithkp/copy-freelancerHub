@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import Button from "@/components/button/Button";
-import { userLogin } from "@/lib/http/controller/userController";
+import { userLogin } from "@/lib/api/fetch";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,11 +9,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { VscLoading } from "react-icons/vsc";
 import { toast } from "react-toastify";
 
-
-
 export default function Login() {
-  const [isSubmitting,setIsSubmitting] = useState(false)
-  const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
   type Inputs = {
     email: string;
     password: string;
@@ -26,17 +24,16 @@ export default function Login() {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    try{
-      setIsSubmitting(true)
+    try {
+      setIsSubmitting(true);
       const response = await userLogin(data.email, data.password);
-      if(response){
-        if(response === "admin"){
-          router.push("admin")
-        }else{
-          const userid = JSON.parse(response.id)
-          const storeToken = localStorage.setItem("userInfo",response.token)
-          const storeId = localStorage.setItem("userId",response.id)
-          toast.success('Login successfully', {
+      if (response) {
+        if (response === "admin") {
+          router.push("/admin");
+        } else {
+          const storeToken = localStorage.setItem("userInfo", response.token);
+          const storeId = localStorage.setItem("userId", response.id);
+          toast.success("Login successfully", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -46,22 +43,23 @@ export default function Login() {
             progress: undefined,
             theme: "light",
           });
-          const progress = JSON.parse(response.progress)
-          setIsSubmitting(false)
-          if(progress==="20"){
-            router.replace(`/register/pro/${userid}`)
-          }else if(progress==="40"){
-            router.replace(`/register/completeYourProfile/${userid}`)
-          }else if(progress==="60"){
-            router.replace(`/register/addService/${userid}`)
-          }else if(progress ==="80"){
-            router.replace(`/register/addPayment/${userid}`)
-          }else if(progress === "100"){
-            router.replace(`/pro/dashboard/${userid}`)
+          setIsSubmitting(false);
+          console.log(response);
+
+          if (response.progress === "20") {
+            router.replace(`/register/pro/${response.id}`);
+          } else if (response.progress === "40") {
+            router.replace(`/register/completeYourProfile/${response.id}`);
+          } else if (response.progress === "60") {
+            router.replace(`/register/addService/${response.id}`);
+          } else if (response.progress === "80") {
+            router.replace(`/register/addPayment/${response.id}`);
+          } else if (response.progress === "100") {
+            router.replace(`/pro/dashboard/${response.id}`);
           }
         }
-      }else{
-        toast.error('Failed to Loggin, try again', {
+      } else {
+        toast.error("Failed to Loggin, try again", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -70,14 +68,13 @@ export default function Login() {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
-          setIsSubmitting(false)
+        });
+        setIsSubmitting(false);
       }
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
   };
-
 
   return (
     <section className="container mx-auto flex md:shadow-xl my-5">
@@ -120,7 +117,7 @@ export default function Login() {
           </div>
         </div>
       </div>
-      <div  className="flex-1 pt-8 px-10 md:px-5 lg:px-20 space-y-5 pb-28">
+      <div className="flex-1 pt-8 px-10 md:px-5 lg:px-20 space-y-5 pb-28">
         <h1 className="text-[32px] leading-[46px] text-center text-[#4FBFA3]">
           Log In
         </h1>
@@ -131,19 +128,21 @@ export default function Login() {
             className="focus:border-[#4FBFA3] border focus:outline-none w-full px-5 py-2.5"
             placeholder="Email or Username"
             {...register("email", { required: true, minLength: 5 })}
-            />
-            {errors.email && (
-          <p className="text-sm text-red-500">Please enter a valid email</p>
-        )}
+          />
+          {errors.email && (
+            <p className="text-sm text-red-500">Please enter a valid email</p>
+          )}
           <input
             type="password"
             className="focus:border-[#4FBFA3] border focus:outline-none w-full px-5 py-2.5"
             placeholder="Password"
             {...register("password", { required: true, minLength: 5 })}
-            />
-            {errors.password && (
-          <p className="text-sm text-red-500">Please enter a valid password</p>
-        )}
+          />
+          {errors.password && (
+            <p className="text-sm text-red-500">
+              Please enter a valid password
+            </p>
+          )}
           <div className="text-[14px] leading-[21px] flex justify-between">
             <label className="flex items-center gap-3">
               <input type="checkbox" className="scale-125" />
@@ -154,14 +153,14 @@ export default function Login() {
             </Link>
           </div>
           <div className="flex justify-end">
-          <Button
-              disabled={ isSubmitting ? true : false}
-            >
-              {isSubmitting? 
-              <div className="animate-spin">
-              <VscLoading size={25}/> 
-              </div>
-              :"Proceed"}
+            <Button disabled={isSubmitting ? true : false}>
+              {isSubmitting ? (
+                <div className="animate-spin">
+                  <VscLoading size={25} />
+                </div>
+              ) : (
+                "Proceed"
+              )}
             </Button>
           </div>
         </form>

@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import ModalSavePayments from "./ModalSavePayments";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { addcard } from "@/lib/http/controller/userController";
 import { toast } from "react-toastify";
+import { addcard } from "@/lib/api/fetch";
 interface ModalPaypalType {
   isHidden: boolean;
   onClick: () => void;

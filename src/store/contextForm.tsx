@@ -27,9 +27,7 @@ export const FormContextProvider = ({
     name: "",
   });
 
-  const addUserSignUpInfo = (name: string, email: string): void => {
-    console.log(name, email);
-    
+  const addUserSignUpInfo = (name: string, email: string): void => {    
     setUserSignUpInfo({
       email,
       name,

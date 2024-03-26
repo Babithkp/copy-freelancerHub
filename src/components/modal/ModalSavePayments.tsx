@@ -1,8 +1,6 @@
 "use client";
-
 import Image from "next/image";
-import React from "react";
-import Button from "../button/Button";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 interface ModalSavePaymentsType {
@@ -16,7 +14,13 @@ export default function ModalSavePayments({
   isHidden,
   onClick,
 }: ModalSavePaymentsType) {
+  const [buttonClicked, SetButtonClick] = useState(false);
   const router = useRouter();
+
+  function clickHandler() {
+    SetButtonClick(true);
+    router.push(`/pro/dashboard/${userId}`);
+  }
   return (
     !isHidden && (
       <div className="absolute top-0 left-0 right-0 min-h-screen min-w-full bg-black bg-opacity-35 flex justify-center items-center z-10 px-2">
@@ -34,12 +38,20 @@ export default function ModalSavePayments({
             Congrats! You{"'"}re all Set
           </h1>
           <p className="text-wrap text-sm text-center py-2">
-          We will email you once your profile has been activated
+            We will email you once your profile has been activated
           </p>
           <div className="py-4 flex justify-center">
-            <Button onClick={() => router.push(`/pro/dashboard/${userId}`)}>
-              Go to dashboard
-            </Button>
+            <button
+              type="button"
+              onClick={clickHandler}
+              className={`px-5 py-2 md:py-2.5 rounded-3xl font-semibold border border-[#4FBFA3] ${
+                buttonClicked
+                  ? "text-[#4FBFA3] cursor-not-allowed"
+                  : "bg-[#4FBFA3] text-white cursor-pointer"
+              }`}
+            >
+              {buttonClicked ? "Loading...":"Go to dashboard"}
+            </button>
           </div>
         </div>
       </div>

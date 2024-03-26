@@ -6,13 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next build && next export"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^41.1.0",
     "@ckeditor/ckeditor5-react": "^6.2.0",
     "@types/bcrypt": "^5.0.2",
     "@uiw/react-md-editor": "^3.6.0",
+    "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "firebase": "^10.9.0",
     "jsonwebtoken": "^9.0.2",

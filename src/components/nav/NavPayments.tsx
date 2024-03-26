@@ -11,8 +11,7 @@ export default function NavPayments() {
       if (typeof localStorage !== "undefined") {
         const value = localStorage.getItem("userId");
         if (value) {
-          const filter = JSON.parse(value);
-          setPath(filter);
+          setPath(value);
         }
       }
     }

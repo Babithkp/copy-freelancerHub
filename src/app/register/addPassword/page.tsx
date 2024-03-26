@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/button/Button";
-import { addNewUser } from "@/lib/http/controller/userController";
+import { addNewUser } from "@/lib/api/fetch";
 import { useGlobalContext } from "@/store/contextForm";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

@@ -12,8 +12,7 @@ export default function NavDashboard() {
     if (typeof localStorage !== "undefined") {
       const value = localStorage.getItem("userId");
       if (value) {
-        const filter = JSON.parse(value);
-        setIserId(filter)
+        setIserId(value)
       }}
     },[])
 
