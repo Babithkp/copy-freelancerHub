@@ -1,6 +1,5 @@
 "use client";
 import Button from "@/components/button/Button";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
@@ -304,7 +303,7 @@ export default function CompleteYourProfile({ params }: any) {
         <div className="px-4">
           <div className="flex flex-col justify-center items-center py-5 mt-5">
             <div className="w-[10rem] h-[10rem]">
-              <Image
+              <img
                 src={selectedImage || "/images/def_fl_128.avif"}
                 alt="default image"
                 width={200}

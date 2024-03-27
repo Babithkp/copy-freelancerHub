@@ -1,6 +1,4 @@
-import Image from "next/image";
 import React from "react";
-
 export default function SectionWhatClientSay() {
   return (
     <section className="container mx-auto lg:px-12 px-3 md:px-5 py-16">
@@ -14,15 +12,15 @@ export default function SectionWhatClientSay() {
         <div id="slide1" className="carousel-item relative w-full">
           <div className=" w-full pt-10 lg:px-20 px-10 flex flex-col justify-center">
             <div className="text-[#707070] text-center">
-              Freelancer hub services have allowed me to find more freelancing work
-              as a writer than any other website. It is easy to communicate with
-              clients through their message system and their SafePay feature
-              ensures that all funds are secured prior to any work being done. I
-              would recommend Freelancer hub to any freelancer who is looking to find new
-              clients online.
+              Freelancer hub services have allowed me to find more freelancing
+              work as a writer than any other website. It is easy to communicate
+              with clients through their message system and their SafePay
+              feature ensures that all funds are secured prior to any work being
+              done. I would recommend Freelancer hub to any freelancer who is
+              looking to find new clients online.
             </div>
             <div className="justify-center pt-5 flex items-center gap-3">
-              <Image
+              <img
                 src={"/images/photo-russell-lee.avif"}
                 alt="example"
                 width={70}
@@ -60,11 +58,11 @@ export default function SectionWhatClientSay() {
               particularly the SafePay feature which makes the transfer of funds
               so easy. I love the integration with PayPal and the ability to
               amend agreements, with all steps communicated to and actioned by
-              both sides. Of all the freelance platforms I have used, Freelancer hub is by
-              far my favorite.
+              both sides. Of all the freelance platforms I have used, Freelancer
+              hub is by far my favorite.
             </div>
             <div className="justify-center pt-5 flex items-center gap-3">
-              <Image
+              <img
                 src={"/images/photo-scopic-software.avif"}
                 alt="example"
                 width={70}

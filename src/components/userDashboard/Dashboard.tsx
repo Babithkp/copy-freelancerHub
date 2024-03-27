@@ -1,6 +1,5 @@
 "use client";
 import { getUserRegisterInfo } from "@/lib/api/fetch";
-import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaUserPen } from "react-icons/fa6";
@@ -36,7 +35,7 @@ export default function Dashboard({params}:any) {
         <div className="bg-[#FAFAFA] border rounded flex-1">
           <div className="py-5 border-b flex flex-col justify-center items-center gap-2">
             <div className="w-[7rem] h-[7rem]">
-              <Image
+              <img
                 src={userProfileImage || "https://placehold.co/400x400/png "}
                 alt="default image"
                 width={200}

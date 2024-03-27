@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import React, { useState } from "react";
 import { BiDollar } from "react-icons/bi";
 import { CiImageOn } from "react-icons/ci";
@@ -278,7 +277,7 @@ export default function AddServiceDedicatedResource() {
                 <IoMdImages className="scale-150" />
               </div>
               {thumbnail && (
-                <Image
+                <img
                   src={thumbnail}
                   alt="image"
                   width={120}

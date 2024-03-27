@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import React, { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import ModalSavePayments from "./ModalSavePayments";
@@ -104,7 +103,7 @@ export default function ModalCreditCard({
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className="flex justify-center">
-              <Image
+              <img
                 src={"/images/pngwing.com.png"}
                 alt="paypal"
                 width={40}
@@ -115,7 +114,7 @@ export default function ModalCreditCard({
               Link a Card
             </h2>
             <div className="flex justify-center">
-              <Image
+              <img
                 src={
                   selectCardType == "visa"
                     ? "/images/png-transparent-visa-logo-mastercard-credit-card-payment-visa-blue-company-text.png"
@@ -203,7 +202,7 @@ export default function ModalCreditCard({
                   maxLength={3}
                 />
 
-                <Image
+                <img
                   src={
                     // selectCardType == "visa"
                     //   ? "/images/png-transparent-visa-logo-mastercard-credit-card-payment-visa-blue-company-text.png"

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import React, { ChangeEvent, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { FaRegAddressBook } from "react-icons/fa";
@@ -59,7 +58,7 @@ export default function EditAboutInfo() {
       {/* photo */}
       <div className="px-4">
         <div className="bg-[url('https://res.cloudinary.com/gurucom/image/upload/f_auto,q_auto,dpr_2/pimg/CoverImages/default_cover_image.jpeg')] flex flex-col justify-center items-center py-5 mt-5">
-          <Image
+          <img
             src={selectedImage || "/images/def_fl_128.avif"}
             alt="default"
             width={150}
@@ -194,7 +193,7 @@ export default function EditAboutInfo() {
                   Featured Team Members
                 </div>
                 <div>
-                  <Image
+                  <img
                     src={"https://placehold.co/400x400.png"}
                     alt="default"
                     width={180}

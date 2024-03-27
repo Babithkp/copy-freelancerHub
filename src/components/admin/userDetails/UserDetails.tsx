@@ -1,6 +1,5 @@
 "use client";
 import { getUserAllInfo } from "@/lib/api/fetch";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -73,7 +72,7 @@ export default function UserDetails({params}:any) {
     <div className="flex w-[90%] flex-col">
       <section className="flex  gap-16 py-8 max-sm:flex-col max-sm:items-center">
         <div className="relative h-[15rem] w-[20%] max-sm:w-[100%]">
-          <Image
+          <img
             src={userInfo?.profileUrl || "https://placehold.co/400x400/png"}
             alt="profile Image "
             className="h-full w-full rounded-lg object-cover drop-shadow-lg"
@@ -186,7 +185,7 @@ export default function UserDetails({params}:any) {
                 {userInfo?.company.teamPicUrl ? (
                   <div className="flex gap-2 flex-col items-center ">
                     <div className="w-[7rem] h-[7rem]">
-                      <Image
+                      <img
                         src={
                           userInfo?.company.teamPicUrl ||
                           "https://placehold.co/400x400/png "
@@ -216,7 +215,7 @@ export default function UserDetails({params}:any) {
                   <div className="flex gap-2 flex-col">
                     {service.thumbnailUrl && (
                       <div className="w-[7rem] h-[7rem]">
-                        <Image
+                        <img
                           src={service.thumbnailUrl}
                           alt="default image"
                           width={200}

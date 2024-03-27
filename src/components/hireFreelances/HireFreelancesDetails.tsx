@@ -1,7 +1,6 @@
 "use client";
 
 import { dummyFreelanceDetail } from "@/lib/dummyFreelanceDetail";
-import Image from "next/image";
 import Link from "next/link";
 import { BiSolidDollarCircle, BiSolidLike } from "react-icons/bi";
 import { FaLocationDot } from "react-icons/fa6";
@@ -16,7 +15,7 @@ export default function HireFreelancesDetails({params}: any ) {
         {/* profile */}
         <div className="flex flex-col items-center justify-center border space-y-3 px-5 pb-5 flex-none lg:w-[27%] rounded-md h-fit">
           <div className="w-full flex flex-row lg:flex-col items-center justify-start gap-3 pt-3 lg:pt-0 ">
-            <Image
+            <img
               src={freelancer?.imageUrl ||"https://placehold.co/400x400/png"}
               alt={freelancer?.name||"example"}
               width={100}

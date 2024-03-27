@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 
 interface CardTransferMethodType {
@@ -16,7 +15,7 @@ export default function CardTransferMethod({
     <>
       <div className="border p-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Image
+          <img
             src={imageUrl}
             alt="method-echeck_vvmwhd.png"
             width={80}

@@ -1,5 +1,4 @@
 import CardItsEasy from "@/components/card/CardItsEasy";
-import Image from "next/image";
 import React from "react";
 
 export default function SectionWorkYouWay() {
@@ -15,7 +14,7 @@ export default function SectionWorkYouWay() {
         </div>
         <div className="flex pt-10 flex-col md:flex-row">
           <div className="flex-1 flex justify-center md:block">
-            <Image
+            <img
               src={"/images/workyourway.avif"}
               alt="workyourway"
               width={500}

@@ -1,7 +1,6 @@
 "use client"
 import React from "react";
 import CardTransferMethod from "@/components/card/CardTransferMethod";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getUserCardInfo } from "@/lib/api/fetch";
@@ -51,7 +50,7 @@ export default function Transfermethod({ params }: any) {
     <section className="container mx-auto lg:px-12 px-3 py-10">
       <div className="flex-1">
         <div>
-          <Image
+          <img
             src={
               card?.type == "visa"
                 ? "/images/png-transparent-visa-logo-mastercard-credit-card-payment-visa-blue-company-text.png"

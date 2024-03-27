@@ -1,6 +1,5 @@
 
 
-import Image from "next/image";
 import { FaLocationDot } from "react-icons/fa6";
 import { BiSolidDollarCircle } from "react-icons/bi";
 import { BiSolidLike } from "react-icons/bi";
@@ -25,7 +24,7 @@ export default function CardTopUsersFreelance({
 }: CardTopUsersFreelanceType) {
   return (
     <div className="flex flex-col items-center justify-center shadow-2xl rounded-md space-y-3 px-5 pb-10 hover:scale-105 duration-200">
-      <Image
+      <img
         src={imageUrl}
         alt="example"
         width={90}

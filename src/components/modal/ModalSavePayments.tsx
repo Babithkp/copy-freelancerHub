@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -26,7 +25,7 @@ export default function ModalSavePayments({
       <div className="absolute top-0 left-0 right-0 min-h-screen min-w-full bg-black bg-opacity-35 flex justify-center items-center z-10 px-2">
         <div className="bg-white p-2 rounded-md md:w-1/2 lg:w-1/3">
           <div className="flex justify-center">
-            <Image
+            <img
               src={"/images/free-credit-card-icon-2056-thumb.png"}
               alt="defaul-image-payments"
               loading="lazy"

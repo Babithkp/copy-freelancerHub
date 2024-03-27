@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
@@ -52,7 +51,7 @@ export default function Navbar() {
     <div className="border-b bg-[#F5F5F5]">
       <nav className="navbar container mx-auto lg:px-12 ">
         <div className="flex-1 flex items-center lg:gap-10 md:gap-4">
-          <Image
+          <img
             src={"/images/Freelancer-Hub.png"}
             width={120}
             height={120}
@@ -129,7 +128,7 @@ export default function Navbar() {
                 role="button"
                 className="flex items-center gap-1 hover:scale-105 duration-200 w-[1.5rem] h-[1.5rem]"
               >
-                <Image
+                <img
                   src={profileUrl || "https://placehold.co/100x100.png"}
                   className="rounded-md w-full h-full"
                   alt="default"
@@ -167,7 +166,7 @@ export default function Navbar() {
         <nav className="navbar container mx-auto lg:px-12 ">
           <div className="flex-1 flex items-center lg:gap-10 md:gap-4">
             <Link href={"/"}>
-              <Image
+              <img
                 src={"/images/Freelancer-Hub.png"}
                 width={120}
                 height={120}
@@ -222,7 +221,7 @@ export default function Navbar() {
         </div>
         <div className="navbar-center">
           <Link href={"/"}>
-            <Image
+            <img
               src={"/images/Freelancer-Hub.png"}
               width={120}
               height={120}
@@ -257,7 +256,7 @@ export default function Navbar() {
         <div className="flex max-h-screen flex-col">
           <div className="flex justify-between py-[11px] px-5 border-b flex-none shadow-md">
             <div>
-              <Image
+              <img
                 src={"/images/Freelancer-Hub.png"}
                 width={120}
                 height={120}

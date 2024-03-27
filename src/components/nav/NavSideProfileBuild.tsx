@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -11,7 +10,7 @@ export default function NavSideProfileBuild() {
   return (
     <aside className="md:w-1/5 lg:w-1/6">
       <div className="pb-3 border-b flex flex-col justify-center items-center gap-2">
-        <Image
+        <img
           src={"https://placehold.co/400x400/png"}
           alt="default"
           width={50}

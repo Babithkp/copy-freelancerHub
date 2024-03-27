@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 interface CardFIndTopFreelanceType {
@@ -20,7 +19,7 @@ export default function CardFIndTopFreelance({
       className="shadow-lg flex flex-col justify-center items-center gap-3 py-5 hover:scale-105 duration-200"
     >
       {icon &&
-      <Image
+      <img
         src={icon}
         alt="programming"
         width={50}
