@@ -89,7 +89,7 @@ export default function Login() {
   return (
     <section className="container mx-auto flex md:shadow-xl my-5">
       <div className="bg-[#4FBFA3] flex-1 text-center text-white pt-8 lg:px-20 px-5 hidden md:block">
-        <h1 className="text-[32px] leading-[46px]">Grow with Guru</h1>
+        <h1 className="text-[32px] leading-[46px]">Grow with Freelancer Hub</h1>
         <div className="w-64 carousel rounded-box">
           <div className="carousel-item w-full flex-col">
             <div>
