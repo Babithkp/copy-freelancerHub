@@ -6,7 +6,7 @@ import { CiCirclePlus } from "react-icons/ci";
 import { FaRegAddressBook } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 import { MdPermIdentity } from "react-icons/md";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form"
 
 import { GoDotFill } from "react-icons/go";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
