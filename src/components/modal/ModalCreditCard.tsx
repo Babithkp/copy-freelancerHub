@@ -220,7 +220,7 @@ export default function ModalCreditCard({
               {errors.cvc && (
                 <p className="text-sm text-red-500">Please enter a valid CVC</p>
               )}
-              {/* <div>
+              <div>
                 <input
                   type="text"
                   placeholder="Billing address"
@@ -232,7 +232,7 @@ export default function ModalCreditCard({
                     Please enter a valid Address
                   </p>
                 )}
-              </div> */}
+              </div>
             </div>
             <div className="pt-3">
               <button

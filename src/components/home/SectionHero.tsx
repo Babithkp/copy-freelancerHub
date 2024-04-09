@@ -1,5 +1,4 @@
-import Link from "next/link";
-import React from "react";
+import Link from "next/link";import React from "react";
 import { FaFileInvoiceDollar } from "react-icons/fa";
 import { FaAward, FaMoneyBills } from "react-icons/fa6";
 import { GrUserManager } from "react-icons/gr";
@@ -9,10 +8,12 @@ export default function SectionHero() {
     <div className="bg-cover bg-[#094063]">
       <section className="flex container mx-auto text-white">
         <div className="flex-1 space-y-7 py-20 md:py-20 lg:py-32 px-3 md:px-12">
-          <h1 className="text-5xl font-bold">Hire Expert Services & Freelancers.</h1>
+          <h1 className="text-5xl font-bold">
+            Hire Expert Services & Freelancers.
+          </h1>
           <h3 className="font-semibold text-lg">
-            Work with the best talent from around the world on our
-            secure, flexible and cost-effective platform.
+            Work with the best talent from around the world on our secure,
+            flexible and cost-effective platform.
           </h3>
           <div className="flex items-center gap-2 md:gap-4 flex-wrap flex-col md:flex-row">
             <input
@@ -62,9 +63,7 @@ export default function SectionHero() {
             <GrUserManager className="scale-[2] text-[#4FBFA3] ml-1" />
             <div>
               <h3 className="text-lg font-bold text-[#094063]">80,000</h3>
-              <h4 className="text-nowrap text-xs md:text-base">
-              Freelancers
-              </h4>
+              <h4 className="text-nowrap text-xs md:text-base">employees</h4>
             </div>
           </div>
           <div className="flex items-start md:items-center gap-5 flex-col md:flex-row flex-1 px-5 py-5">
@@ -72,23 +71,27 @@ export default function SectionHero() {
             <div>
               <h3 className="text-lg font-bold text-[#094063]">1 Million</h3>
               <h4 className="text-nowrap text-xs md:text-base">
-              Clients Worldwide
+                Clients Worldwide
               </h4>
             </div>
           </div>
           <div className="flex items-start md:items-center gap-5 flex-col md:flex-row flex-1 px-5 py-5">
             <FaMoneyBills className="scale-[2] text-[#4FBFA3] ml-1" />
             <div>
-              <h3 className="text-lg font-bold text-[#094063]">25 million paid for services</h3>
+              <h3 className="text-lg font-bold text-[#094063]">
+              $25 million paid
+              </h3>
               <h4 className="text-nowrap text-xs md:text-base">
-                Paid to Freelancers
+                Paid services
               </h4>
             </div>
           </div>
           <div className="flex items-start md:items-center gap-5 flex-col md:flex-row flex-1 px-5 py-5 scale-110 lg:scale-125  bg-white drop-shadow-2xl rounded-md">
             <FaAward className="scale-[2] text-[#4FBFA3] ml-2.5" />
             <div>
-              <h3 className="text-lg font-bold ml-1.5 md:ml-0 text-[#094063]">99%</h3>
+              <h3 className="text-lg font-bold ml-1.5 md:ml-0 text-[#094063]">
+                99%
+              </h3>
               <h4 className="text-nowrap text-xs md:text-base ml-1.5 md:ml-0">
                 Customer Satisfaction Rate
               </h4>
