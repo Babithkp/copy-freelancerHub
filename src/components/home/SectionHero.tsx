@@ -63,7 +63,7 @@ export default function SectionHero() {
             <GrUserManager className="scale-[2] text-[#4FBFA3] ml-1" />
             <div>
               <h3 className="text-lg font-bold text-[#094063]">80,000</h3>
-              <h4 className="text-nowrap text-xs md:text-base">employees</h4>
+              <h4 className="text-nowrap text-xs md:text-base">Employees</h4>
             </div>
           </div>
           <div className="flex items-start md:items-center gap-5 flex-col md:flex-row flex-1 px-5 py-5">
