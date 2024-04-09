@@ -9,15 +9,15 @@ export default function SectionHero() {
     <div className="bg-cover bg-[#094063]">
       <section className="flex container mx-auto text-white">
         <div className="flex-1 space-y-7 py-20 md:py-20 lg:py-32 px-3 md:px-12">
-          <h1 className="text-5xl font-bold">Hire Expert Freelancers & Services.</h1>
+          <h1 className="text-5xl font-bold">Hire Expert Services & Freelancers.</h1>
           <h3 className="font-semibold text-lg">
-            Work with the best freelance talent from around the world on our
+            Work with the best talent from around the world on our
             secure, flexible and cost-effective platform.
           </h3>
           <div className="flex items-center gap-2 md:gap-4 flex-wrap flex-col md:flex-row">
             <input
               type="text"
-              placeholder="What service do you offer?"
+              placeholder="what services are you looking for?"
               className="focus:outline-none border border-transparent focus:border-blue-500 rounded-3xl px-3 py-2.5 flex-1 text-black text-sm md:text-base w-full"
             />
             <Link
@@ -61,7 +61,7 @@ export default function SectionHero() {
           <div className="flex items-start md:items-center gap-5 flex-col md:flex-row flex-1 px-5 py-5">
             <GrUserManager className="scale-[2] text-[#4FBFA3] ml-1" />
             <div>
-              <h3 className="text-lg font-bold text-[#094063]">800,000</h3>
+              <h3 className="text-lg font-bold text-[#094063]">80,000</h3>
               <h4 className="text-nowrap text-xs md:text-base">
               Freelancers
               </h4>
@@ -79,7 +79,7 @@ export default function SectionHero() {
           <div className="flex items-start md:items-center gap-5 flex-col md:flex-row flex-1 px-5 py-5">
             <FaMoneyBills className="scale-[2] text-[#4FBFA3] ml-1" />
             <div>
-              <h3 className="text-lg font-bold text-[#094063]">$25 Million</h3>
+              <h3 className="text-lg font-bold text-[#094063]">25 million paid for services</h3>
               <h4 className="text-nowrap text-xs md:text-base">
                 Paid to Freelancers
               </h4>
