@@ -79,7 +79,7 @@ export default function SectionHero() {
             <FaMoneyBills className="scale-[2] text-[#4FBFA3] ml-1" />
             <div>
               <h3 className="text-lg font-bold text-[#094063]">
-              $25 million paid
+              $25 million
               </h3>
               <h4 className="text-nowrap text-xs md:text-base">
                 Paid services
