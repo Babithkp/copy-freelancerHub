@@ -1,5 +1,4 @@
 "use client";
-
 import { usePathname } from "next/navigation";
 import { IoMail, IoLogoFacebook, IoLogoLinkedin } from "react-icons/io5";
 
@@ -9,7 +8,9 @@ export default function Footer() {
   return pathName === "/login" || pathName.startsWith("/register") ? null : (
     <footer className="bg-[#094063] p-10 text-white bottom-0">
       <div className="text-center">
-        Email: Support@freelancerhub.org
+        <a className="cursor-pointer" href="mailto:Hq.freelancehub@outlook.com">
+          Email: Hq.freelancehub@outlook.com
+        </a>
       </div>
       <div className="text-2xl flex justify-center items-center gap-2 pb-4 pt-4">
         <IoLogoFacebook className="hover:scale-105 duration-200" />
